@@ -64,9 +64,9 @@ class ProfileScreen extends StatelessWidget {
         ? phone
         : '+880 1712 345678';
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
-      body: Column(
+    return Material(
+      color: const Color(0xFFF9FAFB),
+      child: Column(
         children: [
           // Header Section
           Container(
@@ -115,7 +115,7 @@ class ProfileScreen extends StatelessWidget {
                       Text(
                         displayPhone,
                         style: GoogleFonts.inter(
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -139,7 +139,7 @@ class ProfileScreen extends StatelessWidget {
                     height: 40,
                     width: 40,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
@@ -176,7 +176,7 @@ class ProfileScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.03),
+                            color: Colors.black.withValues(alpha: 0.03),
                             blurRadius: 15,
                             offset: const Offset(0, 8),
                           ),

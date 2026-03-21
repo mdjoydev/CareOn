@@ -7,9 +7,9 @@ class SosScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
-      body: SafeArea(
+    return Material(
+      color: const Color(0xFFF9FAFB),
+      child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

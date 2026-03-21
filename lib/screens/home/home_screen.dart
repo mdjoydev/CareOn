@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import '../../constants/assets.dart';
 import '../../core/state/user_session.dart';
 import '../../core/theme/responsive.dart';
+import '../caregiver_detail_screen.dart';
+import '../services/services_screen.dart';
 import '../sos_screen.dart';
+import '../booking_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final VoidCallback? onSosTap;
@@ -22,11 +25,27 @@ class HomeScreen extends StatelessWidget {
     this.isBangla = false,
   });
 
+  void _onCategoryTap(BuildContext context, String label) {
+    if (label == 'Elderly Care' || label == 'বয়স্ক সেবা') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => CaregiverDetailScreen(isBangla: isBangla),
+        ),
+      );
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => BookingScreen(initialService: label),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB),
-      body: SafeArea(
+    return Material(
+      color: const Color(0xFFF9FAFB),
+      child: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
             await Future.delayed(const Duration(seconds: 1));
@@ -93,8 +112,11 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 40),
                       // Service Categories Section
                       _ServiceCategoriesSection(
-                        onViewAll: onViewAllServices,
+                        onViewAll: onViewAllServices ?? () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => ServicesScreen(isBangla: isBangla)));
+                        },
                         isBangla: isBangla,
+                        onCategoryTap: (label) => _onCategoryTap(context, label),
                       ),
                       const SizedBox(height: 40),
                       // Promo Banner (Professional Nursing Care) - Moved before Health Checkup
@@ -371,8 +393,9 @@ class _EmergencyBannerState extends State<_EmergencyBanner> with SingleTickerPro
 
 class _ServiceCategoriesSection extends StatelessWidget {
   final VoidCallback? onViewAll;
+  final Function(String) onCategoryTap;
   final bool isBangla;
-  const _ServiceCategoriesSection({this.onViewAll, this.isBangla = false});
+  const _ServiceCategoriesSection({this.onViewAll, required this.onCategoryTap, this.isBangla = false});
 
   @override
   Widget build(BuildContext context) {
@@ -405,40 +428,43 @@ class _ServiceCategoriesSection extends StatelessWidget {
           itemCount: categories.length,
           itemBuilder: (context, index) {
             final cat = categories[index];
-            return Column(
-              children: [
-                Container(
-                  height: 72,
-                  width: 72,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.06),
-                        blurRadius: 15,
-                        offset: const Offset(0, 8),
-                      ),
-                    ],
+            return GestureDetector(
+              onTap: () => onCategoryTap(cat['label'] as String),
+              child: Column(
+                children: [
+                  Container(
+                    height: 72,
+                    width: 72,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.06),
+                          blurRadius: 15,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(cat['image'] as String, fit: BoxFit.cover),
+                    ),
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(cat['image'] as String, fit: BoxFit.cover),
+                  const SizedBox(height: 10),
+                  Text(
+                    cat['label'] as String,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: Responsive.scaleFontSize(context, 11),
+                      fontWeight: FontWeight.w700,
+                      color: const Color(0xFF374151),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  cat['label'] as String,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: Responsive.scaleFontSize(context, 11),
-                    fontWeight: FontWeight.w700,
-                    color: const Color(0xFF374151),
-                  ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         ),

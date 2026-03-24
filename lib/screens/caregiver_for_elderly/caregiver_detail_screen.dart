@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../core/theme/responsive.dart';
-import '../main.dart';
+import '../../core/theme/responsive.dart';
+import '../../main.dart';
 import 'caregiver_booking_utils.dart';
 import 'caregiver_location_screen.dart';
 

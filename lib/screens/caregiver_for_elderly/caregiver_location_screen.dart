@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'caregiver_booking_utils.dart';
 import 'caregiver_package_screen.dart';
 

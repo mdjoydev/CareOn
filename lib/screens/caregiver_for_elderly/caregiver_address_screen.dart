@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'caregiver_booking_utils.dart';
 import 'caregiver_review_screen.dart';
 
@@ -68,7 +68,9 @@ class _CaregiverAddressScreenState extends State<CaregiverAddressScreen> {
     widget.bookingData.importantInfo = _infoController.text;
 
     if (widget.bookingData.patientName!.isEmpty || widget.bookingData.contact!.isEmpty || widget.bookingData.address!.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please fill mandatory fields')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(widget.isBangla ? 'অনুগ্রহ করে সব তথ্য পূরণ করুন' : 'Please fill mandatory fields'))
+      );
       return;
     }
 
@@ -90,7 +92,7 @@ class _CaregiverAddressScreenState extends State<CaregiverAddressScreen> {
       ),
       body: Column(
         children: [
-          BookingStepIndicator(currentStep: 4),
+          BookingStepIndicator(currentStep: 5),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(24),

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../../constants/assets.dart';
 import '../../core/state/user_session.dart';
 import '../../core/theme/responsive.dart';
-import '../caregiver_detail_screen.dart';
 import '../services/services_screen.dart';
 import '../sos_screen.dart';
 import '../booking_screen.dart';
+import '../caregiver_for_elderly/caregiver_service_details_screen.dart'; // Caregiver Route
 
 class HomeScreen extends StatelessWidget {
   final VoidCallback? onSosTap;
@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
     if (label == 'Elderly Care' || label == 'বয়স্ক সেবা') {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => CaregiverDetailScreen(isBangla: isBangla),
+          builder: (_) => CaregiverServiceDetailsScreen(isBangla: isBangla), // Caregiver Route
         ),
       );
     } else {
@@ -516,7 +516,16 @@ class _PromoBanner extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 18),
-              _AnimatedBookNowButton(isBangla: isBangla),
+              _AnimatedBookNowButton(
+                isBangla: isBangla,
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => BookingScreen(initialService: isBangla ? 'নার্সিং সেবা' : 'Nursing Care'),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ],
@@ -610,7 +619,8 @@ class _BasicHealthCheckupRow extends StatelessWidget {
 
 class _AnimatedBookNowButton extends StatefulWidget {
   final bool isBangla;
-  const _AnimatedBookNowButton({this.isBangla = false});
+  final VoidCallback? onTap;
+  const _AnimatedBookNowButton({this.isBangla = false, this.onTap});
 
   @override
   State<_AnimatedBookNowButton> createState() => _AnimatedBookNowButtonState();
@@ -640,24 +650,27 @@ class _AnimatedBookNowButtonState extends State<_AnimatedBookNowButton> with Sin
 
   @override
   Widget build(BuildContext context) {
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(14),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Text(
-          widget.isBangla ? 'এখনই বুক করুন' : 'Book Now',
-          style: const TextStyle(color: Color(0xFF059669), fontWeight: FontWeight.w800),
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: ScaleTransition(
+        scale: _scaleAnimation,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Text(
+            widget.isBangla ? 'এখনই বুক করুন' : 'Book Now',
+            style: const TextStyle(color: Color(0xFF059669), fontWeight: FontWeight.w800),
+          ),
         ),
       ),
     );

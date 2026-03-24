@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'caregiver_booking_utils.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'caregiver_address_screen.dart';
 
 class CaregiverPatientInfoScreen extends StatefulWidget {
@@ -61,6 +61,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
       ),
       body: Column(
         children: [
+          BookingStepIndicator(currentStep: 4),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(24),

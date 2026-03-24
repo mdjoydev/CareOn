@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'caregiver_booking_utils.dart';
 import 'caregiver_schedule_screen.dart';
 
@@ -157,13 +157,13 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
           OutlinedButton(
             onPressed: () => Navigator.of(context).pop(),
             style: OutlinedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            child: const Text('Back'),
+            child: Text(widget.isBangla ? 'পিছনে' : 'Back'),
           ),
           const Spacer(),
           FilledButton(
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => CaregiverScheduleScreen(isBangla: widget.isBangla, bookingData: widget.bookingData))),
             style: FilledButton.styleFrom(backgroundColor: const Color(0xFF86EFAC), foregroundColor: const Color(0xFF166534), padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            child: const Text('Next'),
+            child: Text(widget.isBangla ? 'পরবর্তী' : 'Next'),
           ),
         ],
       ),

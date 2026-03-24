@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'caregiver_booking_utils.dart';
 import 'caregiver_payment_screen.dart';
 
@@ -153,13 +153,13 @@ class _CaregiverReviewScreenState extends State<CaregiverReviewScreen> {
           OutlinedButton(
             onPressed: () => Navigator.of(context).pop(),
             style: OutlinedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            child: const Text('Back'),
+            child: Text(widget.isBangla ? 'পিছনে' : 'Back'),
           ),
           const Spacer(),
           FilledButton(
             onPressed: _agreed ? () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => CaregiverPaymentScreen(isBangla: widget.isBangla, bookingData: widget.bookingData))) : null,
             style: FilledButton.styleFrom(backgroundColor: const Color(0xFF86EFAC), foregroundColor: const Color(0xFF166534), padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            child: const Text('Confirm & Next'),
+            child: Text(widget.isBangla ? 'নিশ্চিত করুন এবং পরবর্তী' : 'Confirm & Next'),
           ),
         ],
       ),

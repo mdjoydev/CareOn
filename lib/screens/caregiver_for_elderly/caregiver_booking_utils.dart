@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import '../../main.dart';
 
 class BookingData {
+  String? serviceName; // Added serviceName field
   String? area;
   String packageType = 'Daily'; // Daily or Monthly
   String careLevel = 'Standard Care'; // Basic, Standard, Critical
@@ -27,6 +28,8 @@ class BookingData {
   String? importantInfo;
 
   String? paymentMethod;
+
+  BookingData({this.serviceName}); // Added constructor with serviceName
 }
 
 class BookingStepIndicator extends StatelessWidget {

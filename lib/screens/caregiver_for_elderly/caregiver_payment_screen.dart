@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../main.dart';
+import '../../main.dart';
 import 'caregiver_booking_utils.dart';
 import 'caregiver_success_screen.dart';
 
@@ -115,7 +115,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
           OutlinedButton(
             onPressed: () => Navigator.of(context).pop(),
             style: OutlinedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            child: const Text('Back'),
+            child: Text(widget.isBangla ? 'পিছনে' : 'Back'),
           ),
           const Spacer(),
           FilledButton(
@@ -124,7 +124,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
               Navigator.of(context).push(MaterialPageRoute(builder: (_) => CaregiverSuccessScreen(isBangla: widget.isBangla, bookingData: widget.bookingData)));
             },
             style: FilledButton.styleFrom(backgroundColor: CareOnApp.careOnGreen, padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            child: const Text('Pay & Book'),
+            child: Text(widget.isBangla ? 'পেমেন্ট এবং বুকিং' : 'Pay & Book'),
           ),
         ],
       ),

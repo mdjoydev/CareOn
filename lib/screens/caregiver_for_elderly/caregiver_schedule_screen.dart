@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'caregiver_booking_utils.dart';
-import 'caregiver_address_screen.dart';
+import 'caregiver_patient_info_screen.dart';
 
 class CaregiverScheduleScreen extends StatefulWidget {
   final bool isBangla;
@@ -120,19 +120,21 @@ class _CaregiverScheduleScreenState extends State<CaregiverScheduleScreen> {
           OutlinedButton(
             onPressed: () => Navigator.of(context).pop(),
             style: OutlinedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            child: const Text('Back'),
+            child: Text(widget.isBangla ? 'পিছনে' : 'Back'),
           ),
           const Spacer(),
           FilledButton(
             onPressed: () {
               if (widget.bookingData.date == null || widget.bookingData.time == null) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please select both date and time')));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(widget.isBangla ? 'অনুগ্রহ করে তারিখ এবং সময় উভয়ই নির্বাচন করুন' : 'Please select both date and time'))
+                );
                 return;
               }
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => CaregiverAddressScreen(isBangla: widget.isBangla, bookingData: widget.bookingData)));
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => CaregiverPatientInfoScreen(isBangla: widget.isBangla, location: widget.bookingData.area ?? '', bookingData: widget.bookingData)));
             },
             style: FilledButton.styleFrom(backgroundColor: const Color(0xFF86EFAC), foregroundColor: const Color(0xFF166534), padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
-            child: const Text('Next'),
+            child: Text(widget.isBangla ? 'পরবর্তী' : 'Next'),
           ),
         ],
       ),

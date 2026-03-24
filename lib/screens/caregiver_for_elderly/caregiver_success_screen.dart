@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../core/theme/responsive.dart';
-import '../main.dart';
+import '../../core/theme/responsive.dart';
+import '../../main.dart';
 import 'caregiver_booking_utils.dart';
 
 class CaregiverSuccessScreen extends StatelessWidget {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../constants/assets.dart';
 import 'onboarding_screen.dart';
+import 'main_app.dart';
+import '../core/state/user_session.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,9 +19,19 @@ class _SplashScreenState extends State<SplashScreen> {
     // Splash screen time set to 2.5 seconds
     Future.delayed(const Duration(milliseconds: 2500), () {
       if (!mounted) return;
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const OnboardingScreen()),
-      );
+      
+      final session = UserSession.instance;
+      if (session.name != null && session.name!.isNotEmpty) {
+        // User is logged in, go to main app
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const MainApp()),
+        );
+      } else {
+        // User not logged in, go to onboarding
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const OnboardingScreen()),
+        );
+      }
     });
   }
 

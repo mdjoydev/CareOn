@@ -11,6 +11,7 @@ import '../caregiver_for_elderly/caregiver_service_details_screen.dart';
 import '../physiotherapy_at_home/physiotherapy_service_details_screen.dart';
 import '../nursing_care_service/nursing_service_details_screen.dart';
 import '../baby_care_service/baby_care_service_details_screen.dart';
+import '../../widgets/bottom_navbar.dart';
 
 class HomeScreen extends StatelessWidget {
   final VoidCallback? onSosTap;

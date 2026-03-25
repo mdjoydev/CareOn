@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_schedule_screen.dart';
+import 'nursing_booking_utils.dart';
+import 'nursing_schedule_screen.dart';
 
-class CaregiverPackageScreen extends StatefulWidget {
+class NursingPackageScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
-  const CaregiverPackageScreen({super.key, required this.isBangla, required this.bookingData});
+  final NursingBookingData bookingData;
+  const NursingPackageScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverPackageScreen> createState() => _CaregiverPackageScreenState();
+  State<NursingPackageScreen> createState() => _NursingPackageScreenState();
 }
 
-class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
+class _NursingPackageScreenState extends State<NursingPackageScreen> {
   final Map<String, Map<String, Map<String, int>>> _prices = {
     'Daily': {
-      'Basic Care': {'8 Hours': 600, '12 Hours': 1200, '24 Hours': 2400},
-      'Standard Care': {'8 Hours': 1200, '12 Hours': 2400, '24 Hours': 3200},
-      'Critical Care': {'8 Hours': 4000, '12 Hours': 6000, '24 Hours': 8000},
+      'Basic Care': {'8 Hours': 1000, '12 Hours': 1800, '24 Hours': 2200},
+      'Standard Care': {'8 Hours': 3000, '12 Hours': 4400, '24 Hours': 5400},
+      'Critical Care': {'8 Hours': 6500, '12 Hours': 7200, '24 Hours': 8400},
     },
     'Monthly': {
-      'Basic Care': {'8 Hours': 3200, '12 Hours': 4800, '24 Hours': 5500},
-      'Standard Care': {'8 Hours': 4800, '12 Hours': 6400, '24 Hours': 7200},
-      'Critical Care': {'8 Hours': 12000, '12 Hours': 16000, '24 Hours': 24000},
+      'Basic Care': {'8 Hours': 9000, '12 Hours': 11000, '24 Hours': 13000},
+      'Standard Care': {'8 Hours': 15000, '12 Hours': 18000, '24 Hours': 21000},
+      'Critical Care': {'8 Hours': 24000, '12 Hours': 26000, '24 Hours': 32000},
     }
   };
 
@@ -46,7 +46,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            BookingStepIndicator(currentStep: 2),
+            NursingStepIndicator(currentStep: 2),
             const Divider(height: 1),
             Expanded(
               child: SingleChildScrollView(
@@ -68,13 +68,12 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
                     ),
                     const SizedBox(height: 24),
                     
-                    // Daily/Monthly Toggle
                     Container(
                       decoration: BoxDecoration(color: const Color(0xFFF3F4F6), borderRadius: BorderRadius.circular(12)),
                       child: Row(
                         children: [
-                          Expanded(child: _buildTypeToggle(widget.isBangla ? 'দৈনিক' : 'Daily', 'Daily')),
-                          Expanded(child: _buildTypeToggle(widget.isBangla ? 'মাসিক' : 'Monthly', 'Monthly')),
+                          Expanded(child: _buildTypeToggle(widget.isBangla ? 'দৈনিক প্যাকেজ' : 'Daily Package', 'Daily')),
+                          Expanded(child: _buildTypeToggle(widget.isBangla ? 'মাসিক প্যাকেজ' : 'Monthly Package', 'Monthly')),
                         ],
                       ),
                     ),
@@ -96,7 +95,6 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
               ),
             ),
             
-            // Bottom Navigation
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -130,7 +128,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
                     child: FilledButton(
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => CaregiverScheduleScreen(
+                          builder: (_) => NursingScheduleScreen(
                             isBangla: widget.isBangla, 
                             bookingData: widget.bookingData
                           ),
@@ -168,7 +166,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
-          child: Text(label, style: TextStyle(color: isSelected ? Colors.white : Colors.grey.shade600, fontWeight: FontWeight.bold)),
+          child: Text(label, style: TextStyle(color: isSelected ? Colors.white : Colors.grey.shade600, fontWeight: FontWeight.bold, fontSize: 13)),
         ),
       ),
     );
@@ -205,7 +203,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
           widget.bookingData.price = price!;
         }),
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 8),
           decoration: BoxDecoration(
             color: isSelected ? const Color(0xFFF0FDF4) : Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -222,7 +220,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
                 style: const TextStyle(fontSize: 9, color: Colors.grey)
               ),
               const SizedBox(height: 4),
-              Text('৳ $price', style: const TextStyle(color: CareOnApp.careOnGreen, fontWeight: FontWeight.bold, fontSize: 13)),
+              Text('৳ $price', style: const TextStyle(color: CareOnApp.careOnGreen, fontWeight: FontWeight.bold, fontSize: 12)),
             ],
           ),
         ),

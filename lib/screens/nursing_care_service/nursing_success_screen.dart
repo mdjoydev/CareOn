@@ -3,13 +3,13 @@ import 'dart:math';
 import '../../core/theme/responsive.dart';
 import '../../main.dart';
 import '../support_screen.dart';
-import 'caregiver_booking_utils.dart';
+import 'nursing_booking_utils.dart';
 
-class CaregiverSuccessScreen extends StatelessWidget {
+class NursingSuccessScreen extends StatelessWidget {
   final bool isBangla;
-  final BookingData bookingData;
+  final NursingBookingData bookingData;
 
-  const CaregiverSuccessScreen({
+  const NursingSuccessScreen({
     super.key,
     required this.isBangla,
     required this.bookingData,
@@ -18,7 +18,7 @@ class CaregiverSuccessScreen extends StatelessWidget {
   String _generateBookingId() {
     final random = Random();
     final id = random.nextInt(900000) + 100000;
-    return '#CFEB&PC$id';
+    return '#NCS$id';
   }
 
   @override
@@ -80,7 +80,7 @@ class CaregiverSuccessScreen extends StatelessWidget {
               _buildSectionCard(
                 title: isBangla ? 'বুকিং বিবরণ' : 'Booking Details',
                 children: [
-                  _buildDetailRow(isBangla ? 'সেবা:' : 'Service:', bookingData.serviceName ?? 'Caregiver for Elderly, Bedridden & Post-Hospital Care'),
+                  _buildDetailRow(isBangla ? 'সেবা:' : 'Service:', bookingData.serviceName ?? 'Nursing Care Service'),
                   _buildDetailRow(isBangla ? 'বুকিং আইডি:' : 'Booking ID:', bookingId),
                   _buildDetailRow(isBangla ? 'স্ট্যাটাস:' : 'Status:', isBangla ? 'গৃহীত' : 'Received', valueColor: CareOnApp.careOnGreen),
                 ],

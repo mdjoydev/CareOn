@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/assets.dart';
 import '../booking_screen.dart';
+import '../caregiver_for_elderly/caregiver_service_details_screen.dart';
+import '../patients_attendant_service/patients_attendant_service_details_screen.dart';
+import '../ambulance_support/ambulance_booking_screen.dart';
 
 class ServicesScreen extends StatelessWidget {
   final bool isBangla;
@@ -11,9 +14,29 @@ class ServicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void openBooking(String service) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => BookingScreen(initialService: service)),
-      );
+      if (service == 'Elderly Care' || service == 'বয়স্ক সেবা') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => CaregiverServiceDetailsScreen(isBangla: isBangla),
+          ),
+        );
+      } else if (service == 'Patient Attendant' || service == 'রোগীর পরিচারক') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => PatientsAttendantServiceDetailsScreen(isBangla: isBangla),
+          ),
+        );
+      } else if (service == 'Ambulance' || service == 'অ্যাম্বুলেন্স') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => AmbulanceBookingScreen(isBangla: isBangla),
+          ),
+        );
+      } else {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => BookingScreen(initialService: service)),
+        );
+      }
     }
 
     return Material(
@@ -149,7 +172,7 @@ class ServicesScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.02),
+                  color: Colors.black.withOpacity(0.02),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -276,7 +299,7 @@ class ServicesScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.02),
+                  color: Colors.black.withOpacity(0.02),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),

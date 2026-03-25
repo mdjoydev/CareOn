@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_success_screen.dart';
+import 'patients_attendant_booking_utils.dart';
+import 'patients_attendant_success_screen.dart';
 
-class CaregiverPaymentScreen extends StatefulWidget {
+class PatientsAttendantPaymentScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
+  final PatientsAttendantBookingData bookingData;
 
-  const CaregiverPaymentScreen({
+  const PatientsAttendantPaymentScreen({
     super.key,
     required this.isBangla,
     required this.bookingData,
   });
 
   @override
-  State<CaregiverPaymentScreen> createState() => _CaregiverPaymentScreenState();
+  State<PatientsAttendantPaymentScreen> createState() => _PatientsAttendantPaymentScreenState();
 }
 
-class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
+class _PatientsAttendantPaymentScreenState extends State<PatientsAttendantPaymentScreen> {
   String _selectedMethod = 'bKash';
 
   @override
@@ -38,7 +38,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
       ),
       body: Column(
         children: [
-          BookingStepIndicator(currentStep: 6),
+          PatientsAttendantStepIndicator(currentStep: 6),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(24),
@@ -191,7 +191,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
               onPressed: () {
                 widget.bookingData.paymentMethod = _selectedMethod;
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => CaregiverSuccessScreen(
+                  builder: (_) => PatientsAttendantSuccessScreen(
                     isBangla: widget.isBangla, 
                     bookingData: widget.bookingData
                   ),

@@ -7,7 +7,10 @@ import '../../core/theme/responsive.dart';
 import '../services/services_screen.dart';
 import '../sos_screen.dart';
 import '../booking_screen.dart';
-import '../caregiver_for_elderly/caregiver_service_details_screen.dart'; // Caregiver Route
+import '../caregiver_for_elderly/caregiver_service_details_screen.dart';
+import '../physiotherapy_at_home/physiotherapy_service_details_screen.dart';
+import '../nursing_care_service/nursing_service_details_screen.dart';
+import '../baby_care_service/baby_care_service_details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final VoidCallback? onSosTap;
@@ -29,7 +32,25 @@ class HomeScreen extends StatelessWidget {
     if (label == 'Elderly Care' || label == 'বয়স্ক সেবা') {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => CaregiverServiceDetailsScreen(isBangla: isBangla), // Caregiver Route
+          builder: (_) => CaregiverServiceDetailsScreen(isBangla: isBangla),
+        ),
+      );
+    } else if (label == 'Physiotherapy' || label == 'ফিজিওথেরাপি') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => PhysiotherapyServiceDetailsScreen(isBangla: isBangla),
+        ),
+      );
+    } else if (label == 'Nursing Care' || label == 'নার্সিং সেবা') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => NursingServiceDetailsScreen(isBangla: isBangla),
+        ),
+      );
+    } else if (label == 'Baby Care' || label == 'বেবি কেয়ার') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => BabyCareServiceDetailsScreen(isBangla: isBangla),
         ),
       );
     } else {
@@ -59,7 +80,6 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header Section with Animation
                 TweenAnimationBuilder<double>(
                   tween: Tween(begin: 0.0, end: 1.0),
                   duration: const Duration(milliseconds: 800),
@@ -104,13 +124,11 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       const SizedBox(height: 32),
-                      // Emergency Help Banner with Animation
                       _EmergencyBanner(
                         onSosTap: onSosTap,
                         isBangla: isBangla,
                       ),
                       const SizedBox(height: 40),
-                      // Service Categories Section
                       _ServiceCategoriesSection(
                         onViewAll: onViewAllServices ?? () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (_) => ServicesScreen(isBangla: isBangla)));
@@ -119,16 +137,13 @@ class HomeScreen extends StatelessWidget {
                         onCategoryTap: (label) => _onCategoryTap(context, label),
                       ),
                       const SizedBox(height: 40),
-                      // Promo Banner (Professional Nursing Care) - Moved before Health Checkup
                       _PromoBanner(isBangla: isBangla),
                       const SizedBox(height: 40),
-                      // Basic Health Checkup Row
                       _BasicHealthCheckupRow(
                         onViewAll: onViewAllCheckups,
                         isBangla: isBangla,
                       ),
                       const SizedBox(height: 40),
-                      // Recent Activity Section
                       _RecentActivitySection(isBangla: isBangla),
                       const SizedBox(height: 40),
                     ],
@@ -521,7 +536,7 @@ class _PromoBanner extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => BookingScreen(initialService: isBangla ? 'নার্সিং সেবা' : 'Nursing Care'),
+                      builder: (_) => NursingServiceDetailsScreen(isBangla: isBangla),
                     ),
                   );
                 },

@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_success_screen.dart';
+import 'baby_care_booking_utils.dart';
+import 'baby_care_success_screen.dart';
 
-class CaregiverPaymentScreen extends StatefulWidget {
+class BabyCarePaymentScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
+  final BabyCareBookingData bookingData;
 
-  const CaregiverPaymentScreen({
+  const BabyCarePaymentScreen({
     super.key,
     required this.isBangla,
     required this.bookingData,
   });
 
   @override
-  State<CaregiverPaymentScreen> createState() => _CaregiverPaymentScreenState();
+  State<BabyCarePaymentScreen> createState() => _BabyCarePaymentScreenState();
 }
 
-class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
+class _BabyCarePaymentScreenState extends State<BabyCarePaymentScreen> {
   String _selectedMethod = 'bKash';
 
   @override
@@ -38,7 +37,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
       ),
       body: Column(
         children: [
-          BookingStepIndicator(currentStep: 6),
+          BabyCareStepIndicator(currentStep: 6),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(24),
@@ -103,14 +102,14 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: isSelected ? CareOnApp.careOnGreen : Colors.grey.shade200,
+                color: isSelected ? const Color(0xFF059669) : Colors.grey.shade200,
                 width: isSelected ? 2 : 1,
               ),
-              color: isSelected ? CareOnApp.careOnGreen.withOpacity(0.02) : Colors.white,
+              color: isSelected ? const Color(0xFF059669).withOpacity(0.02) : Colors.white,
             ),
             child: Row(
               children: [
-                Icon(icon, color: isSelected ? CareOnApp.careOnGreen : Colors.grey),
+                Icon(icon, color: isSelected ? const Color(0xFF059669) : Colors.grey),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Text(
@@ -128,7 +127,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
                   value: val,
                   groupValue: _selectedMethod,
                   onChanged: (v) => setState(() => _selectedMethod = v!),
-                  activeColor: CareOnApp.careOnGreen,
+                  activeColor: const Color(0xFF059669),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   visualDensity: VisualDensity.compact,
                 ),
@@ -191,7 +190,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
               onPressed: () {
                 widget.bookingData.paymentMethod = _selectedMethod;
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => CaregiverSuccessScreen(
+                  builder: (_) => BabyCareSuccessScreen(
                     isBangla: widget.isBangla, 
                     bookingData: widget.bookingData
                   ),
@@ -199,7 +198,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
               },
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                backgroundColor: CareOnApp.careOnGreen,
+                backgroundColor: const Color(0xFF059669),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               child: Text(

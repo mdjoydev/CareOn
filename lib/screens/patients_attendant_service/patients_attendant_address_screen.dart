@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'caregiver_booking_utils.dart';
+import 'patients_attendant_booking_utils.dart';
 import '../../main.dart';
-import 'caregiver_review_screen.dart';
+import 'patients_attendant_review_screen.dart';
 
-class CaregiverPatientInfoScreen extends StatefulWidget {
+class PatientsAttendantAddressScreen extends StatefulWidget {
   final bool isBangla;
-  final String location;
-  final BookingData bookingData;
-  const CaregiverPatientInfoScreen({super.key, required this.isBangla, required this.location, required this.bookingData});
+  final PatientsAttendantBookingData bookingData;
+  const PatientsAttendantAddressScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverPatientInfoScreen> createState() => _CaregiverPatientInfoScreenState();
+  State<PatientsAttendantAddressScreen> createState() => _PatientsAttendantAddressScreenState();
 }
 
-class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen> {
+class _PatientsAttendantAddressScreenState extends State<PatientsAttendantAddressScreen> {
   final _formKey = GlobalKey<FormState>();
   
   late bool _isForSelf;
@@ -83,7 +82,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => CaregiverReviewScreen(
+          builder: (_) => PatientsAttendantReviewScreen(
             isBangla: widget.isBangla,
             bookingData: widget.bookingData,
           ),
@@ -104,13 +103,13 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          widget.isBangla ? 'রোগীর তথ্য' : 'Patient Information',
+          widget.isBangla ? 'রোগীর তথ্য ও ঠিকানা' : 'Patient Info & Address',
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
         children: [
-          BookingStepIndicator(currentStep: 4),
+          PatientsAttendantStepIndicator(currentStep: 4),
           Expanded(
             child: Form(
               key: _formKey,
@@ -223,8 +222,8 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
                   Wrap(
                     spacing: 12,
                     children: [
-                      _buildSelectionChip('Male Nurse', widget.isBangla ? 'পুরুষ নার্স' : 'Male Nurse', _genderPreference == 'Male Nurse', (v) => setState(() => _genderPreference = 'Male Nurse')),
-                      _buildSelectionChip('Female Nurse', widget.isBangla ? 'মহিলা নার্স' : 'Female Nurse', _genderPreference == 'Female Nurse', (v) => setState(() => _genderPreference = 'Female Nurse')),
+                      _buildSelectionChip('Male Attendant', widget.isBangla ? 'পুরুষ অ্যাটেনডেন্ট' : 'Male Attendant', _genderPreference == 'Male Attendant', (v) => setState(() => _genderPreference = 'Male Attendant')),
+                      _buildSelectionChip('Female Attendant', widget.isBangla ? 'মহিলা অ্যাটেনডেন্ট' : 'Female Attendant', _genderPreference == 'Female Attendant', (v) => setState(() => _genderPreference = 'Female Attendant')),
                     ],
                   ),
                   const SizedBox(height: 24),

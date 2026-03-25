@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'caregiver_booking_utils.dart';
+import 'nursing_booking_utils.dart';
 import '../../main.dart';
-import 'caregiver_review_screen.dart';
+import 'nursing_review_screen.dart';
 
-class CaregiverPatientInfoScreen extends StatefulWidget {
+class NursingAddressScreen extends StatefulWidget {
   final bool isBangla;
-  final String location;
-  final BookingData bookingData;
-  const CaregiverPatientInfoScreen({super.key, required this.isBangla, required this.location, required this.bookingData});
+  final NursingBookingData bookingData;
+  const NursingAddressScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverPatientInfoScreen> createState() => _CaregiverPatientInfoScreenState();
+  State<NursingAddressScreen> createState() => _NursingAddressScreenState();
 }
 
-class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen> {
+class _NursingAddressScreenState extends State<NursingAddressScreen> {
   final _formKey = GlobalKey<FormState>();
   
   late bool _isForSelf;
@@ -83,7 +82,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => CaregiverReviewScreen(
+          builder: (_) => NursingReviewScreen(
             isBangla: widget.isBangla,
             bookingData: widget.bookingData,
           ),
@@ -104,13 +103,13 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          widget.isBangla ? 'রোগীর তথ্য' : 'Patient Information',
+          widget.isBangla ? 'রোগীর তথ্য ও ঠিকানা' : 'Patient Info & Address',
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
         children: [
-          BookingStepIndicator(currentStep: 4),
+          NursingStepIndicator(currentStep: 4),
           Expanded(
             child: Form(
               key: _formKey,

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'caregiver_booking_utils.dart';
+import 'physiotherapy_booking_utils.dart';
 import '../../main.dart';
-import 'caregiver_review_screen.dart';
+import 'physiotherapy_review_screen.dart';
 
-class CaregiverPatientInfoScreen extends StatefulWidget {
+class PhysiotherapyAddressScreen extends StatefulWidget {
   final bool isBangla;
-  final String location;
-  final BookingData bookingData;
-  const CaregiverPatientInfoScreen({super.key, required this.isBangla, required this.location, required this.bookingData});
+  final PhysiotherapyBookingData bookingData;
+  const PhysiotherapyAddressScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverPatientInfoScreen> createState() => _CaregiverPatientInfoScreenState();
+  State<PhysiotherapyAddressScreen> createState() => _PhysiotherapyAddressScreenState();
 }
 
-class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen> {
+class _PhysiotherapyAddressScreenState extends State<PhysiotherapyAddressScreen> {
   final _formKey = GlobalKey<FormState>();
   
   late bool _isForSelf;
@@ -83,7 +82,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => CaregiverReviewScreen(
+          builder: (_) => PhysiotherapyReviewScreen(
             isBangla: widget.isBangla,
             bookingData: widget.bookingData,
           ),
@@ -104,13 +103,13 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          widget.isBangla ? 'রোগীর তথ্য' : 'Patient Information',
+          widget.isBangla ? 'রোগীর তথ্য ও ঠিকানা' : 'Patient Info & Address',
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
         children: [
-          BookingStepIndicator(currentStep: 4),
+          PhysiotherapyStepIndicator(currentStep: 2),
           Expanded(
             child: Form(
               key: _formKey,
@@ -223,8 +222,8 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
                   Wrap(
                     spacing: 12,
                     children: [
-                      _buildSelectionChip('Male Nurse', widget.isBangla ? 'পুরুষ নার্স' : 'Male Nurse', _genderPreference == 'Male Nurse', (v) => setState(() => _genderPreference = 'Male Nurse')),
-                      _buildSelectionChip('Female Nurse', widget.isBangla ? 'মহিলা নার্স' : 'Female Nurse', _genderPreference == 'Female Nurse', (v) => setState(() => _genderPreference = 'Female Nurse')),
+                      _buildSelectionChip('Male Therapist', widget.isBangla ? 'পুরুষ থেরাপিস্ট' : 'Male Therapist', _genderPreference == 'Male Therapist', (v) => setState(() => _genderPreference = 'Male Therapist')),
+                      _buildSelectionChip('Female Therapist', widget.isBangla ? 'মহিলা থেরাপিস্ট' : 'Female Therapist', _genderPreference == 'Female Therapist', (v) => setState(() => _genderPreference = 'Female Therapist')),
                     ],
                   ),
                   const SizedBox(height: 24),

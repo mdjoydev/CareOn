@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_package_screen.dart';
+import 'physiotherapy_booking_utils.dart';
+import 'physiotherapy_address_screen.dart';
 
-class CaregiverLocationScreen extends StatefulWidget {
+class PhysiotherapyLocationScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
-  const CaregiverLocationScreen({super.key, required this.isBangla, required this.bookingData});
+  final PhysiotherapyBookingData bookingData;
+  const PhysiotherapyLocationScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverLocationScreen> createState() => _CaregiverLocationScreenState();
+  State<PhysiotherapyLocationScreen> createState() => _PhysiotherapyLocationScreenState();
 }
 
-class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
+class _PhysiotherapyLocationScreenState extends State<PhysiotherapyLocationScreen> {
   String? _selectedArea;
 
   final List<String> _areas = [
@@ -47,7 +47,7 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            BookingStepIndicator(currentStep: 1),
+            PhysiotherapyStepIndicator(currentStep: 1),
             const Divider(height: 1),
             Expanded(
               child: SingleChildScrollView(
@@ -73,7 +73,6 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
                     ),
                     const SizedBox(height: 32),
                     
-                    // Area Selection Grid (using Wrap for better stability)
                     Wrap(
                       spacing: 12,
                       runSpacing: 16,
@@ -83,7 +82,7 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
                           onTap: () => setState(() => _selectedArea = area),
                           borderRadius: BorderRadius.circular(12),
                           child: Container(
-                            width: (MediaQuery.of(context).size.width - 72) / 2, // 2 items per row
+                            width: (MediaQuery.of(context).size.width - 72) / 2,
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
                             decoration: BoxDecoration(
                               color: isSelected ? const Color(0xFFF0FDF4) : Colors.white,
@@ -124,7 +123,6 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
               ),
             ),
             
-            // Bottom Navigation
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
@@ -160,7 +158,7 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
                         widget.bookingData.area = _selectedArea;
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => CaregiverPackageScreen(
+                            builder: (_) => PhysiotherapyAddressScreen(
                               isBangla: widget.isBangla,
                               bookingData: widget.bookingData,
                             ),

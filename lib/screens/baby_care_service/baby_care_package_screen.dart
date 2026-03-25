@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
-import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_schedule_screen.dart';
+import 'baby_care_booking_utils.dart';
+import 'baby_care_schedule_screen.dart';
 
-class CaregiverPackageScreen extends StatefulWidget {
+class BabyCarePackageScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
-  const CaregiverPackageScreen({super.key, required this.isBangla, required this.bookingData});
+  final BabyCareBookingData bookingData;
+  const BabyCarePackageScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverPackageScreen> createState() => _CaregiverPackageScreenState();
+  State<BabyCarePackageScreen> createState() => _BabyCarePackageScreenState();
 }
 
-class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
+class _BabyCarePackageScreenState extends State<BabyCarePackageScreen> {
   final Map<String, Map<String, Map<String, int>>> _prices = {
     'Daily': {
-      'Basic Care': {'8 Hours': 600, '12 Hours': 1200, '24 Hours': 2400},
-      'Standard Care': {'8 Hours': 1200, '12 Hours': 2400, '24 Hours': 3200},
-      'Critical Care': {'8 Hours': 4000, '12 Hours': 6000, '24 Hours': 8000},
+      'Basic Care': {'8 Hours': 800, '12 Hours': 1200, '24 Hours': 1600},
+      'Standard Care': {'8 Hours': 2000, '12 Hours': 2600, '24 Hours': 3200},
+      'Critical Care': {'8 Hours': 4000, '12 Hours': 4800, '24 Hours': 5600},
     },
     'Monthly': {
-      'Basic Care': {'8 Hours': 3200, '12 Hours': 4800, '24 Hours': 5500},
-      'Standard Care': {'8 Hours': 4800, '12 Hours': 6400, '24 Hours': 7200},
-      'Critical Care': {'8 Hours': 12000, '12 Hours': 16000, '24 Hours': 24000},
+      'Basic Care': {'8 Hours': 5000, '12 Hours': 8000, '24 Hours': 12000},
+      'Standard Care': {'8 Hours': 8000, '12 Hours': 14000, '24 Hours': 18000},
+      'Critical Care': {'8 Hours': 20000, '12 Hours': 24000, '24 Hours': 27000},
     }
   };
 
@@ -46,7 +45,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            BookingStepIndicator(currentStep: 2),
+            BabyCareStepIndicator(currentStep: 2),
             const Divider(height: 1),
             Expanded(
               child: SingleChildScrollView(
@@ -130,7 +129,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
                     child: FilledButton(
                       onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (_) => CaregiverScheduleScreen(
+                          builder: (_) => BabyCareScheduleScreen(
                             isBangla: widget.isBangla, 
                             bookingData: widget.bookingData
                           ),
@@ -138,7 +137,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
                       ),
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: CareOnApp.careOnGreen,
+                        backgroundColor: const Color(0xFF059669),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       child: Text(
@@ -164,7 +163,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
         margin: const EdgeInsets.all(4),
         padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: isSelected ? CareOnApp.careOnGreen : Colors.transparent,
+          color: isSelected ? const Color(0xFF059669) : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(
@@ -209,7 +208,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
           decoration: BoxDecoration(
             color: isSelected ? const Color(0xFFF0FDF4) : Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: isSelected ? CareOnApp.careOnGreen : Colors.grey.shade200, width: 1.5),
+            border: Border.all(color: isSelected ? const Color(0xFF059669) : Colors.grey.shade200, width: 1.5),
           ),
           child: Column(
             children: [
@@ -222,7 +221,7 @@ class _CaregiverPackageScreenState extends State<CaregiverPackageScreen> {
                 style: const TextStyle(fontSize: 9, color: Colors.grey)
               ),
               const SizedBox(height: 4),
-              Text('৳ $price', style: const TextStyle(color: CareOnApp.careOnGreen, fontWeight: FontWeight.bold, fontSize: 13)),
+              Text('৳ $price', style: const TextStyle(color: Color(0xFF059669), fontWeight: FontWeight.bold, fontSize: 13)),
             ],
           ),
         ),

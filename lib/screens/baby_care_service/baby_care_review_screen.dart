@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_payment_screen.dart';
+import 'baby_care_booking_utils.dart';
+import 'baby_care_payment_screen.dart';
 
-class CaregiverReviewScreen extends StatefulWidget {
+class BabyCareReviewScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
+  final BabyCareBookingData bookingData;
 
-  const CaregiverReviewScreen({
+  const BabyCareReviewScreen({
     super.key,
     required this.isBangla,
     required this.bookingData,
   });
 
   @override
-  State<CaregiverReviewScreen> createState() => _CaregiverReviewScreenState();
+  State<BabyCareReviewScreen> createState() => _BabyCareReviewScreenState();
 }
 
-class _CaregiverReviewScreenState extends State<CaregiverReviewScreen> {
+class _BabyCareReviewScreenState extends State<BabyCareReviewScreen> {
   bool _agreed = false;
 
   @override
@@ -38,7 +38,7 @@ class _CaregiverReviewScreenState extends State<CaregiverReviewScreen> {
       ),
       body: Column(
         children: [
-          BookingStepIndicator(currentStep: 5),
+          BabyCareStepIndicator(currentStep: 5),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(24),
@@ -75,12 +75,22 @@ class _CaregiverReviewScreenState extends State<CaregiverReviewScreen> {
                       ),
                       const SizedBox(height: 16),
                       _buildSummaryRow(
+                        widget.isBangla ? 'যত্নের স্তর:' : 'Care Level:', 
+                        widget.bookingData.careLevel
+                      ),
+                      const SizedBox(height: 16),
+                      _buildSummaryRow(
+                        widget.isBangla ? 'সময়কাল:' : 'Duration:', 
+                        widget.bookingData.hours
+                      ),
+                      const SizedBox(height: 16),
+                      _buildSummaryRow(
                         widget.isBangla ? 'তারিখ ও সময়:' : 'Date & Time:', 
                         '${_formatDate(widget.bookingData.date)} • ${widget.bookingData.time?.format(context)}'
                       ),
                       const SizedBox(height: 16),
                       _buildSummaryRow(
-                        widget.isBangla ? 'রোগীর ঠিকানা:' : 'Patient Address:', 
+                        widget.isBangla ? 'ঠিকানা:' : 'Address:', 
                         '${widget.bookingData.area}, ${widget.bookingData.address}'
                       ),
                       const Divider(height: 40),
@@ -126,8 +136,8 @@ class _CaregiverReviewScreenState extends State<CaregiverReviewScreen> {
                         ? 'আমি একটি নিরাপদ কাজের পরিবেশ প্রদান করতে এবং সকল সুরক্ষা নির্দেশিকা মেনে চলতে সম্মত।' 
                         : 'I agree to provide a safe working environment and comply with all safety guidelines.'),
                       _buildBullet(widget.isBangla 
-                        ? 'সকল ব্যক্তিগত এবং চিকিৎসা তথ্য গোপন রাখা হবে।' 
-                        : 'All personal and medical information will be kept confidential.'),
+                        ? 'সকল ব্যক্তিগত তথ্য গোপন রাখা হবে।' 
+                        : 'All personal information will be kept confidential.'),
                       _buildBullet(widget.isBangla 
                         ? 'আমি নিশ্চিত করছি যে প্রদত্ত সকল তথ্য সঠিক এবং সম্পূর্ণ।' 
                         : 'I confirm that all information provided is accurate and complete.'),
@@ -219,11 +229,11 @@ class _CaregiverReviewScreenState extends State<CaregiverReviewScreen> {
           Expanded(
             child: FilledButton(
               onPressed: _agreed 
-                ? () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => CaregiverPaymentScreen(isBangla: widget.isBangla, bookingData: widget.bookingData))) 
+                ? () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => BabyCarePaymentScreen(isBangla: widget.isBangla, bookingData: widget.bookingData))) 
                 : null,
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                backgroundColor: CareOnApp.careOnGreen,
+                backgroundColor: const Color(0xFF059669),
                 disabledBackgroundColor: Colors.grey.shade300,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),

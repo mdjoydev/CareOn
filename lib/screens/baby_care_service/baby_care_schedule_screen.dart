@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_patient_info_screen.dart';
+import 'baby_care_booking_utils.dart';
+import 'baby_care_info_screen.dart';
 
-class CaregiverScheduleScreen extends StatefulWidget {
+class BabyCareScheduleScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
-  const CaregiverScheduleScreen({super.key, required this.isBangla, required this.bookingData});
+  final BabyCareBookingData bookingData;
+  const BabyCareScheduleScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverScheduleScreen> createState() => _CaregiverScheduleScreenState();
+  State<BabyCareScheduleScreen> createState() => _BabyCareScheduleScreenState();
 }
 
-class _CaregiverScheduleScreenState extends State<CaregiverScheduleScreen> {
+class _BabyCareScheduleScreenState extends State<BabyCareScheduleScreen> {
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
       context: context,
@@ -51,7 +50,7 @@ class _CaregiverScheduleScreenState extends State<CaregiverScheduleScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            BookingStepIndicator(currentStep: 3),
+            BabyCareStepIndicator(currentStep: 3),
             const Divider(height: 1),
             Expanded(
               child: SingleChildScrollView(
@@ -148,9 +147,8 @@ class _CaregiverScheduleScreenState extends State<CaregiverScheduleScreen> {
                         }
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => CaregiverPatientInfoScreen(
+                            builder: (_) => BabyCareInfoScreen(
                               isBangla: widget.isBangla, 
-                              location: widget.bookingData.area ?? '', 
                               bookingData: widget.bookingData
                             ),
                           ),
@@ -158,7 +156,7 @@ class _CaregiverScheduleScreenState extends State<CaregiverScheduleScreen> {
                       },
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: CareOnApp.careOnGreen,
+                        backgroundColor: const Color(0xFF059669),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       child: Text(
@@ -186,11 +184,11 @@ class _CaregiverScheduleScreenState extends State<CaregiverScheduleScreen> {
         decoration: BoxDecoration(
           color: const Color(0xFFF9FAFB),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: hasValue ? CareOnApp.careOnGreen : Colors.grey.shade200, width: 1.5),
+          border: Border.all(color: hasValue ? const Color(0xFF059669) : Colors.grey.shade200, width: 1.5),
         ),
         child: Row(
           children: [
-            Icon(icon, size: 20, color: hasValue ? CareOnApp.careOnGreen : Colors.grey.shade400),
+            Icon(icon, size: 20, color: hasValue ? const Color(0xFF059669) : Colors.grey.shade400),
             const SizedBox(width: 12),
             Text(
               value,

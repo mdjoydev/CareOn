@@ -3,13 +3,13 @@ import 'dart:math';
 import '../../core/theme/responsive.dart';
 import '../../main.dart';
 import '../support_screen.dart';
-import 'caregiver_booking_utils.dart';
+import 'physiotherapy_booking_utils.dart';
 
-class CaregiverSuccessScreen extends StatelessWidget {
+class PhysiotherapySuccessScreen extends StatelessWidget {
   final bool isBangla;
-  final BookingData bookingData;
+  final PhysiotherapyBookingData bookingData;
 
-  const CaregiverSuccessScreen({
+  const PhysiotherapySuccessScreen({
     super.key,
     required this.isBangla,
     required this.bookingData,
@@ -18,7 +18,7 @@ class CaregiverSuccessScreen extends StatelessWidget {
   String _generateBookingId() {
     final random = Random();
     final id = random.nextInt(900000) + 100000;
-    return '#CFEB&PC$id';
+    return '#PHY$id';
   }
 
   @override
@@ -65,8 +65,8 @@ class CaregiverSuccessScreen extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 isBangla 
-                  ? 'আমাদের দল বর্তমানে আপনার কেসের জন্য সেরা উপলব্ধ নার্স নিয়োগ করছে। আপনি ১৫-৩০ মিনিটের মধ্যে একটি কল পাবেন।' 
-                  : 'Our team is currently assigning the best available nurse to your case. You will receive a call within 15–30 minutes.',
+                  ? 'আমাদের দল বর্তমানে আপনার কেসের জন্য সেরা উপলব্ধ থেরাপিস্ট নিয়োগ করছে। আপনি ১৫-৩০ মিনিটের মধ্যে একটি কল পাবেন।' 
+                  : 'Our team is currently assigning the best available therapist to your case. You will receive a call within 15–30 minutes.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: Responsive.scaleFontSize(context, 14),
@@ -80,7 +80,7 @@ class CaregiverSuccessScreen extends StatelessWidget {
               _buildSectionCard(
                 title: isBangla ? 'বুকিং বিবরণ' : 'Booking Details',
                 children: [
-                  _buildDetailRow(isBangla ? 'সেবা:' : 'Service:', bookingData.serviceName ?? 'Caregiver for Elderly, Bedridden & Post-Hospital Care'),
+                  _buildDetailRow(isBangla ? 'সেবা:' : 'Service:', bookingData.serviceName ?? 'Physiotherapy at Home'),
                   _buildDetailRow(isBangla ? 'বুকিং আইডি:' : 'Booking ID:', bookingId),
                   _buildDetailRow(isBangla ? 'স্ট্যাটাস:' : 'Status:', isBangla ? 'গৃহীত' : 'Received', valueColor: CareOnApp.careOnGreen),
                 ],
@@ -95,8 +95,8 @@ class CaregiverSuccessScreen extends StatelessWidget {
                     ? 'আপনি ১৫-৩০ মিনিটের মধ্যে আমাদের প্রোভাইডারের কাছ থেকে একটি নিশ্চিতকরণ কল পাবেন' 
                     : 'You will receive a confirmation call from our provider within 15–30 minutes'),
                   _buildStepItem(isBangla 
-                    ? 'নিযুক্ত নার্স সময়সূচী এবং ঠিকানার বিবরণ নিশ্চিত করবেন' 
-                    : 'The assigned nurse will confirm the schedule and address details'),
+                    ? 'নিযুক্ত থেরাপিস্ট সময়সূচী এবং ঠিকানার বিবরণ নিশ্চিত করবেন' 
+                    : 'The assigned therapist will confirm the schedule and address details'),
                   _buildStepItem(isBangla 
                     ? 'আপনার নির্বাচিত পদ্ধতি অনুযায়ী পেমেন্ট সংগ্রহ করা হবে' 
                     : 'Payment will be collected as per your selected method'),
@@ -124,8 +124,8 @@ class CaregiverSuccessScreen extends StatelessWidget {
                     ? 'প্রদত্ত ঠিকানা এবং যোগাযোগের বিবরণ সঠিক কিনা তা নিশ্চিত করুন।' 
                     : 'Ensure the address and contact details provided are accurate.'),
                   _buildNoteItem(isBangla 
-                    ? 'নার্সের জন্য প্রয়োজনীয় চিকিৎসা নথি প্রস্তুত রাখুন।' 
-                    : 'Have necessary medical documents ready for the nurse.'),
+                    ? 'থেরাপিস্টের জন্য প্রয়োজনীয় চিকিৎসা নথি প্রস্তুত রাখুন।' 
+                    : 'Have necessary medical documents ready for the therapist.'),
                   _buildNoteItem(isBangla 
                     ? 'একটি নিরাপদ এবং প্রবেশযোগ্য কর্মক্ষেত্র উপলব্ধ থাকা উচিত।' 
                     : 'A safe and accessible workspace should be available.'),

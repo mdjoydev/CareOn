@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_success_screen.dart';
+import 'physiotherapy_booking_utils.dart';
+import 'physiotherapy_success_screen.dart';
 
-class CaregiverPaymentScreen extends StatefulWidget {
+class PhysiotherapyPaymentScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
+  final PhysiotherapyBookingData bookingData;
 
-  const CaregiverPaymentScreen({
+  const PhysiotherapyPaymentScreen({
     super.key,
     required this.isBangla,
     required this.bookingData,
   });
 
   @override
-  State<CaregiverPaymentScreen> createState() => _CaregiverPaymentScreenState();
+  State<PhysiotherapyPaymentScreen> createState() => _PhysiotherapyPaymentScreenState();
 }
 
-class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
+class _PhysiotherapyPaymentScreenState extends State<PhysiotherapyPaymentScreen> {
   String _selectedMethod = 'bKash';
 
   @override
@@ -38,7 +38,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
       ),
       body: Column(
         children: [
-          BookingStepIndicator(currentStep: 6),
+          PhysiotherapyStepIndicator(currentStep: 4),
           Expanded(
             child: ListView(
               padding: const EdgeInsets.all(24),
@@ -129,8 +129,6 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
                   groupValue: _selectedMethod,
                   onChanged: (v) => setState(() => _selectedMethod = v!),
                   activeColor: CareOnApp.careOnGreen,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  visualDensity: VisualDensity.compact,
                 ),
               ],
             ),
@@ -191,7 +189,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
               onPressed: () {
                 widget.bookingData.paymentMethod = _selectedMethod;
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => CaregiverSuccessScreen(
+                  builder: (_) => PhysiotherapySuccessScreen(
                     isBangla: widget.isBangla, 
                     bookingData: widget.bookingData
                   ),
@@ -203,7 +201,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               child: Text(
-                widget.isBangla ? 'পেমেন্ট ও বুকিং' : 'Pay & Book',
+                widget.isBangla ? 'বুকিং সম্পন্ন করুন' : 'Confirm Booking',
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),

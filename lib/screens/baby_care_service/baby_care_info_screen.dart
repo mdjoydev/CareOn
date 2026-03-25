@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-import 'caregiver_booking_utils.dart';
-import '../../main.dart';
-import 'caregiver_review_screen.dart';
+import 'baby_care_booking_utils.dart';
+import 'baby_care_review_screen.dart';
 
-class CaregiverPatientInfoScreen extends StatefulWidget {
+class BabyCareInfoScreen extends StatefulWidget {
   final bool isBangla;
-  final String location;
-  final BookingData bookingData;
-  const CaregiverPatientInfoScreen({super.key, required this.isBangla, required this.location, required this.bookingData});
+  final BabyCareBookingData bookingData;
+  const BabyCareInfoScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverPatientInfoScreen> createState() => _CaregiverPatientInfoScreenState();
+  State<BabyCareInfoScreen> createState() => _BabyCareInfoScreenState();
 }
 
-class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen> {
+class _BabyCareInfoScreenState extends State<BabyCareInfoScreen> {
   final _formKey = GlobalKey<FormState>();
   
-  late bool _isForSelf;
   final _nameController = TextEditingController();
   String _selectedGender = 'Male';
   final _ageController = TextEditingController();
@@ -34,8 +31,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
   @override
   void initState() {
     super.initState();
-    _isForSelf = widget.bookingData.isForSelf;
-    _nameController.text = widget.bookingData.patientName ?? '';
+    _nameController.text = widget.bookingData.babyName ?? '';
     _selectedGender = widget.bookingData.gender ?? 'Male';
     _ageController.text = widget.bookingData.age ?? '';
     _heightController.text = widget.bookingData.height ?? '';
@@ -66,8 +62,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
 
   void _onNext() {
     if (_formKey.currentState!.validate()) {
-      widget.bookingData.isForSelf = _isForSelf;
-      widget.bookingData.patientName = _nameController.text;
+      widget.bookingData.babyName = _nameController.text;
       widget.bookingData.gender = _selectedGender;
       widget.bookingData.age = _ageController.text;
       widget.bookingData.height = _heightController.text;
@@ -83,7 +78,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => CaregiverReviewScreen(
+          builder: (_) => BabyCareReviewScreen(
             isBangla: widget.isBangla,
             bookingData: widget.bookingData,
           ),
@@ -104,33 +99,23 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          widget.isBangla ? 'রোগীর তথ্য' : 'Patient Information',
+          widget.isBangla ? 'শিশুর তথ্য' : 'Baby Information',
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
         children: [
-          BookingStepIndicator(currentStep: 4),
+          BabyCareStepIndicator(currentStep: 4),
           Expanded(
             child: Form(
               key: _formKey,
               child: ListView(
                 padding: const EdgeInsets.all(24),
                 children: [
-                  _buildSectionTitle(widget.isBangla ? 'বুকিং কার জন্য *' : 'Booking For *'),
-                  Row(
-                    children: [
-                      Expanded(child: _buildSelectionChip('Self', widget.isBangla ? 'নিজে' : 'Self', _isForSelf, (v) => setState(() => _isForSelf = true))),
-                      const SizedBox(width: 12),
-                      Expanded(child: _buildSelectionChip('Someone Else', widget.isBangla ? 'অন্য কেউ' : 'Someone Else', !_isForSelf, (v) => setState(() => _isForSelf = false))),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  
                   _buildTextField(
-                    label: widget.isBangla ? 'রোগীর নাম *' : 'Patient Name *',
+                    label: widget.isBangla ? 'শিশুর নাম *' : 'Baby Name *',
                     controller: _nameController,
-                    hint: widget.isBangla ? 'রোগীর নাম লিখুন' : 'Enter patient name',
+                    hint: widget.isBangla ? 'শিশুর নাম লিখুন' : 'Enter baby name',
                     validator: (v) => v!.isEmpty ? (widget.isBangla ? 'নাম লিখুন' : 'Enter name') : null,
                   ),
                   const SizedBox(height: 24),
@@ -138,11 +123,9 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
                   _buildSectionTitle(widget.isBangla ? 'লিঙ্গ *' : 'Gender *'),
                   Row(
                     children: [
-                      Expanded(child: _buildSelectionChip('Male', widget.isBangla ? 'পুরুষ' : 'Male', _selectedGender == 'Male', (v) => setState(() => _selectedGender = 'Male'))),
+                      Expanded(child: _buildSelectionChip('Male', widget.isBangla ? 'ছেলে' : 'Male', _selectedGender == 'Male', (v) => setState(() => _selectedGender = 'Male'))),
                       const SizedBox(width: 8),
-                      Expanded(child: _buildSelectionChip('Female', widget.isBangla ? 'মহিলা' : 'Female', _selectedGender == 'Female', (v) => setState(() => _selectedGender = 'Female'))),
-                      const SizedBox(width: 8),
-                      Expanded(child: _buildSelectionChip('Others', widget.isBangla ? 'অন্যান্য' : 'Others', _selectedGender == 'Others', (v) => setState(() => _selectedGender = 'Others'))),
+                      Expanded(child: _buildSelectionChip('Female', widget.isBangla ? 'মেয়ে' : 'Female', _selectedGender == 'Female', (v) => setState(() => _selectedGender = 'Female'))),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -151,29 +134,27 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
                     label: widget.isBangla ? 'বয়স *' : 'Age *',
                     controller: _ageController,
                     hint: widget.isBangla ? 'বয়স' : 'Age',
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     validator: (v) => v!.isEmpty ? (widget.isBangla ? 'বয়স লিখুন' : 'Enter age') : null,
                   ),
                   const SizedBox(height: 24),
 
                   _buildTextField(
-                    label: widget.isBangla ? 'উচ্চতা * (ফুট এবং ইঞ্চিতে লিখুন)' : 'Height * (Enter in feet and inches)',
+                    label: widget.isBangla ? 'উচ্চতা * (ঐচ্ছিক)' : 'Height * (Optional)',
                     controller: _heightController,
-                    hint: widget.isBangla ? 'যেমন: ৫ ফুট ৮ ইঞ্চি' : 'e.g., 5 ft 8 in',
-                    validator: (v) => v!.isEmpty ? (widget.isBangla ? 'উচ্চতা লিখুন' : 'Enter height') : null,
+                    hint: widget.isBangla ? 'যেমন: ২ ফুট' : 'e.g., 2 ft',
                   ),
                   const SizedBox(height: 24),
 
                   _buildTextField(
-                    label: widget.isBangla ? 'ওজন * (কেজি)' : 'Weight * (Kg)',
+                    label: widget.isBangla ? 'ওজন * (ঐচ্ছিক)' : 'Weight * (Optional)',
                     controller: _weightController,
                     hint: widget.isBangla ? 'ওজন' : 'Weight',
                     keyboardType: TextInputType.number,
-                    validator: (v) => v!.isEmpty ? (widget.isBangla ? 'ওজন লিখুন' : 'Enter weight') : null,
                   ),
                   const SizedBox(height: 24),
 
-                  _buildSectionTitle(widget.isBangla ? 'রোগীর ধরন *' : 'Patient Type *'),
+                  _buildSectionTitle(widget.isBangla ? 'জাতীয়তা *' : 'Nationality *'),
                   Row(
                     children: [
                       Expanded(child: _buildSelectionChip('Bangladeshi', widget.isBangla ? 'বাংলাদেশী' : 'Bangladeshi', _patientType == 'Bangladeshi', (v) => setState(() => _patientType = 'Bangladeshi'))),
@@ -184,7 +165,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
                   if (_patientType == 'Foreigner') ...[
                     const SizedBox(height: 24),
                     _buildTextField(
-                      label: widget.isBangla ? 'দেশ (যদি বিদেশী হয়, দয়া করে আপনার দেশের নাম লিখুন)' : 'Country (If foreigner, please enter your country name)',
+                      label: widget.isBangla ? 'দেশ' : 'Country',
                       controller: _countryController,
                       hint: widget.isBangla ? 'দেশের নাম লিখুন' : 'Enter country name',
                       validator: (v) => _patientType == 'Foreigner' && v!.isEmpty ? (widget.isBangla ? 'দেশের নাম লিখুন' : 'Enter country name') : null,
@@ -193,7 +174,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
                   const SizedBox(height: 24),
 
                   _buildTextField(
-                    label: widget.isBangla ? 'রোগীর যোগাযোগ নম্বর *' : 'Patient Contact *',
+                    label: widget.isBangla ? 'যোগাযোগ নম্বর *' : 'Contact Number *',
                     controller: _contactController,
                     hint: '+880 1XXX-XXXXXX',
                     keyboardType: TextInputType.phone,
@@ -219,12 +200,13 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
                   ),
                   const SizedBox(height: 24),
 
-                  _buildSectionTitle(widget.isBangla ? 'লিঙ্গ পছন্দ' : 'Gender Preference'),
+                  _buildSectionTitle(widget.isBangla ? 'ন্যানি পছন্দ' : 'Nanny Preference'),
                   Wrap(
                     spacing: 12,
+                    runSpacing: 8,
                     children: [
-                      _buildSelectionChip('Male Nurse', widget.isBangla ? 'পুরুষ নার্স' : 'Male Nurse', _genderPreference == 'Male Nurse', (v) => setState(() => _genderPreference = 'Male Nurse')),
-                      _buildSelectionChip('Female Nurse', widget.isBangla ? 'মহিলা নার্স' : 'Female Nurse', _genderPreference == 'Female Nurse', (v) => setState(() => _genderPreference = 'Female Nurse')),
+                      _buildSelectionChip('Male', widget.isBangla ? 'পুরুষ' : 'Male', _genderPreference == 'Male', (v) => setState(() => _genderPreference = 'Male')),
+                      _buildSelectionChip('Female', widget.isBangla ? 'মহিলা' : 'Female', _genderPreference == 'Female', (v) => setState(() => _genderPreference = 'Female')),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -244,7 +226,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
                   _buildTextField(
                     label: widget.isBangla ? 'গুরুত্বপূর্ণ তথ্য (যদি থাকে)' : 'Important Information (if any)',
                     controller: _importantInfoController,
-                    hint: widget.isBangla ? 'যেকোনো শারীরিক অবস্থা, অ্যালার্জি বা নির্দিষ্ট প্রয়োজনীয়তা...' : 'Any medical conditions, allergies, or specific requirements...',
+                    hint: widget.isBangla ? 'অ্যালার্জি, নির্দিষ্ট রুটিন বা প্রয়োজনীয়তা...' : 'Allergies, specific routine or requirements...',
                     maxLines: 3,
                   ),
                   const SizedBox(height: 40),
@@ -276,7 +258,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
                     onPressed: _onNext,
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: CareOnApp.careOnGreen,
+                      backgroundColor: const Color(0xFF059669),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                     child: Text(
@@ -342,7 +324,7 @@ class _CaregiverPatientInfoScreenState extends State<CaregiverPatientInfoScreen>
         decoration: BoxDecoration(
           color: isSelected ? const Color(0xFFECFDF5) : const Color(0xFFF9FAFB),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: isSelected ? CareOnApp.careOnGreen : const Color(0xFFF3F4F6)),
+          border: Border.all(color: isSelected ? const Color(0xFF059669) : const Color(0xFFF3F4F6)),
         ),
         child: Center(
           child: Text(

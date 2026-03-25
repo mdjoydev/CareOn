@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_package_screen.dart';
+import 'baby_care_booking_utils.dart';
+import 'baby_care_package_screen.dart';
 
-class CaregiverLocationScreen extends StatefulWidget {
+class BabyCareLocationScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
-  const CaregiverLocationScreen({super.key, required this.isBangla, required this.bookingData});
+  final BabyCareBookingData bookingData;
+  const BabyCareLocationScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverLocationScreen> createState() => _CaregiverLocationScreenState();
+  State<BabyCareLocationScreen> createState() => _BabyCareLocationScreenState();
 }
 
-class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
+class _BabyCareLocationScreenState extends State<BabyCareLocationScreen> {
   String? _selectedArea;
 
   final List<String> _areas = [
@@ -47,7 +46,7 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            BookingStepIndicator(currentStep: 1),
+            BabyCareStepIndicator(currentStep: 1),
             const Divider(height: 1),
             Expanded(
               child: SingleChildScrollView(
@@ -73,7 +72,6 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
                     ),
                     const SizedBox(height: 32),
                     
-                    // Area Selection Grid (using Wrap for better stability)
                     Wrap(
                       spacing: 12,
                       runSpacing: 16,
@@ -83,13 +81,13 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
                           onTap: () => setState(() => _selectedArea = area),
                           borderRadius: BorderRadius.circular(12),
                           child: Container(
-                            width: (MediaQuery.of(context).size.width - 72) / 2, // 2 items per row
+                            width: (MediaQuery.of(context).size.width - 72) / 2,
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
                             decoration: BoxDecoration(
                               color: isSelected ? const Color(0xFFF0FDF4) : Colors.white,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: isSelected ? CareOnApp.careOnGreen : Colors.grey.shade200,
+                                color: isSelected ? const Color(0xFF059669) : Colors.grey.shade200,
                                 width: 1.5,
                               ),
                             ),
@@ -98,7 +96,7 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
                                 Icon(
                                   isSelected ? Icons.check_circle : Icons.circle_outlined,
                                   size: 18,
-                                  color: isSelected ? CareOnApp.careOnGreen : Colors.grey.shade400,
+                                  color: isSelected ? const Color(0xFF059669) : Colors.grey.shade400,
                                 ),
                                 const SizedBox(width: 10),
                                 Expanded(
@@ -160,7 +158,7 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
                         widget.bookingData.area = _selectedArea;
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => CaregiverPackageScreen(
+                            builder: (_) => BabyCarePackageScreen(
                               isBangla: widget.isBangla,
                               bookingData: widget.bookingData,
                             ),
@@ -169,7 +167,7 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
                       },
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: CareOnApp.careOnGreen,
+                        backgroundColor: const Color(0xFF059669),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       child: Text(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class BookingData {
-  String? serviceName;
+class NursingBookingData {
+  String? serviceName = 'Nursing Care Service';
   String? area;
-  String packageType = 'Daily';
-  String careLevel = 'Standard Care';
-  String hours = '12 Hours';
-  int price = 2400;
+  String packageType = 'Daily'; // Daily, Monthly
+  String careLevel = 'Basic Care'; // Basic, Standard, Critical
+  String hours = '8 Hours'; // 8, 12, 24
+  int price = 1000;
   DateTime? date;
   TimeOfDay? time;
   
@@ -26,16 +26,16 @@ class BookingData {
   String? importantInfo;
   String? paymentMethod;
 
-  BookingData({this.serviceName});
+  NursingBookingData();
 }
 
-class BookingStepIndicator extends StatelessWidget {
+class NursingStepIndicator extends StatelessWidget {
   final int currentStep;
-  const BookingStepIndicator({super.key, required this.currentStep});
+  const NursingStepIndicator({super.key, required this.currentStep});
 
   @override
   Widget build(BuildContext context) {
-    final steps = ['Location', 'Package', 'Schedule', 'Info', 'Review', 'Pay'];
+    final steps = ['Location', 'Package', 'Schedule', 'Address', 'Review', 'Pay'];
     const primaryGreen = Color(0xFF00A66C);
 
     return Container(
@@ -45,7 +45,6 @@ class BookingStepIndicator extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Step circles and lines
           Row(
             children: List.generate(steps.length, (index) {
               final stepNum = index + 1;
@@ -55,7 +54,6 @@ class BookingStepIndicator extends StatelessWidget {
               return Expanded(
                 child: Row(
                   children: [
-                    // Circle
                     Container(
                       width: 22,
                       height: 22,
@@ -78,7 +76,6 @@ class BookingStepIndicator extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // Line
                     if (!isLast)
                       Expanded(
                         child: Container(
@@ -92,7 +89,6 @@ class BookingStepIndicator extends StatelessWidget {
             }),
           ),
           const SizedBox(height: 8),
-          // Step Labels
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: steps.map((step) {

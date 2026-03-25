@@ -18,17 +18,19 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   int _currentIndex = 0;
   late List<Widget> _screens;
+  late bool _isBangla;
 
   @override
   void initState() {
     super.initState();
+    _isBangla = widget.isBangla;
     _initializeScreens();
   }
 
   void _initializeScreens() {
     _screens = [
       HomeScreen(
-        isBangla: widget.isBangla,
+        isBangla: _isBangla,
         onSosTap: _handleSosTap,
         onViewAllServices: () {
           setState(() => _currentIndex = 1);
@@ -37,10 +39,17 @@ class _MainAppState extends State<MainApp> {
           // Handle view all checkups
         },
       ),
-      ServicesScreen(isBangla: widget.isBangla),
+      ServicesScreen(isBangla: _isBangla),
       const SizedBox(), // Placeholder for SOS (handled by floating button)
-      HealthTipsScreen(isBangla: widget.isBangla),
-      ProfileScreen(isBangla: widget.isBangla),
+      HealthTipsScreen(isBangla: _isBangla),
+      ProfileScreen(
+        isBangla: _isBangla,
+        onLanguageToggle: () {
+          setState(() {
+            _isBangla = !_isBangla;
+          });
+        },
+      ),
     ];
   }
 
@@ -75,7 +84,7 @@ class _MainAppState extends State<MainApp> {
         currentIndex: _currentIndex,
         onTabSelected: _handleTabSelected,
         onSosTap: _handleSosTap,
-        isBangla: widget.isBangla,
+        isBangla: _isBangla,
       ),
     );
   }

@@ -565,6 +565,18 @@ class _BasicHealthCheckupRow extends StatelessWidget {
         'image': CareOnAssets.womenHealthPng,
         'title': isBangla ? 'নারী স্বাস্থ্য পরীক্ষা' : 'Women health\ncheckup'
       },
+      {
+        'image': CareOnAssets.migraineSyndromePng,
+        'title': isBangla ? 'মাইগ্রেন ও পেশীর টান' : 'Migraine & Muscle\nTension'
+      },
+      {
+        'image': CareOnAssets.psychologicalDistressPng,
+        'title': isBangla ? 'মানসিক চাপ ও বিষণ্নতা' : 'Psychological\nDistress'
+      },
+      {
+        'image': CareOnAssets.environmentalAllergyPng,
+        'title': isBangla ? 'পরিবেশগত অ্যালার্জি' : 'Environmental\nAllergy'
+      },
     ];
 
     return Column(

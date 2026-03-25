@@ -39,7 +39,7 @@ class _MainAppState extends State<MainApp> {
       ),
       ServicesScreen(isBangla: widget.isBangla),
       const SizedBox(), // Placeholder for SOS (handled by floating button)
-      TipsScreen(isBangla: widget.isBangla),
+      HealthTipsScreen(isBangla: widget.isBangla),
       ProfileScreen(isBangla: widget.isBangla),
     ];
   }

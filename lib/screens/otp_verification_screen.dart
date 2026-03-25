@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../main.dart';
-import '../home_page.dart';
+import 'home/home_screen.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   final String phoneNumber;
@@ -43,7 +43,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     }
 
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => CareOnShell(initialIsBangla: _isBangla)),
+      MaterialPageRoute(builder: (_) => HomeScreen(isBangla: _isBangla)),
       (route) => false,
     );
   }

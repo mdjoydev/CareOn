@@ -50,11 +50,9 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
         initialTime: TimeOfDay.now(),
       );
       if (time != null) {
-        setState(() {
-          _bookingData.pickupDateTime = DateTime(
-            date.year, date.month, date.day, time.hour, time.minute
-          );
-        });
+        _bookingData.pickupDateTime = DateTime(
+          date.year, date.month, date.day, time.hour, time.minute
+        );
       }
     }
   }
@@ -212,7 +210,7 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
                         decoration: BoxDecoration(
                           color: const Color(0xFFF9FAFB),
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.grey.shade200),
+                          border: Border.all(color: Colors.grey),
                         ),
                         child: Row(
                           children: [

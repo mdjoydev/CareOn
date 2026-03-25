@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 import '../core/state/user_session.dart';
 import '../main.dart';
 import 'login_screen.dart';
 import 'support_screen.dart';
+import 'main_app.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final bool isBangla;
   final VoidCallback? onLanguageToggle;
 
   const ProfileScreen({
     super.key,
-    this.isBangla = false,
     this.onLanguageToggle,
   });
 
@@ -53,13 +53,16 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LanguageProvider>(context);
+    final isBangla = provider.isBangla;
+    
     final session = UserSession.instance;
     final name = session.name?.trim();
     final phone = session.phone?.trim();
 
     final displayName = name != null && name.isNotEmpty
         ? name
-        : (isBangla ? 'জয় চৌধুরী' : 'Joy Chowdhury');
+        : 'Joy Chowdhury';
     final displayPhone = phone != null && phone.isNotEmpty
         ? phone
         : '+880 1712 345678';
@@ -192,7 +195,7 @@ class ProfileScreen extends StatelessWidget {
                             onTap: () {},
                           ),
                           _buildDivider(),
-                          _buildLanguageTile(),
+                          _buildLanguageTile(isBangla: isBangla),
                           _buildDivider(),
                           _buildProfileTile(
                             icon: Icons.notifications_active_outlined,
@@ -288,7 +291,7 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildLanguageTile() {
+  Widget _buildLanguageTile({required bool isBangla}) {
     return InkWell(
       onTap: onLanguageToggle,
       child: Padding(

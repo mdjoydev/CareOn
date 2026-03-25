@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/assets.dart';
 import '../../core/state/user_session.dart';
@@ -11,13 +12,14 @@ import '../caregiver_for_elderly/caregiver_service_details_screen.dart';
 import '../physiotherapy_at_home/physiotherapy_service_details_screen.dart';
 import '../nursing_care_service/nursing_service_details_screen.dart';
 import '../baby_care_service/baby_care_service_details_screen.dart';
+import 'health_checkup_packages_screen.dart';
+import 'main_app.dart';
 
 class HomeScreen extends StatelessWidget {
   final VoidCallback? onSosTap;
   final VoidCallback? onViewAllServices;
   final VoidCallback? onViewAllCheckups;
   final VoidCallback? onLanguageToggle;
-  final bool isBangla;
 
   const HomeScreen({
     super.key,
@@ -25,10 +27,12 @@ class HomeScreen extends StatelessWidget {
     this.onViewAllServices,
     this.onViewAllCheckups,
     this.onLanguageToggle,
-    this.isBangla = false,
   });
 
   void _onCategoryTap(BuildContext context, String label) {
+    final provider = Provider.of<LanguageProvider>(context, listen: false);
+    final isBangla = provider.isBangla;
+    
     if (label == 'Elderly Care' || label == 'বয়স্ক সেবা') {
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -64,6 +68,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LanguageProvider>(context);
+    final isBangla = provider.isBangla;
+
     return Material(
       color: const Color(0xFFF9FAFB),
       child: SafeArea(
@@ -140,7 +147,13 @@ class HomeScreen extends StatelessWidget {
                       _PromoBanner(isBangla: isBangla),
                       const SizedBox(height: 40),
                       _BasicHealthCheckupRow(
-                        onViewAll: onViewAllCheckups,
+                        onViewAll: onViewAllCheckups ?? () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => HealthCheckupPackagesScreen(isBangla: isBangla),
+                            ),
+                          );
+                        },
                         isBangla: isBangla,
                       ),
                       const SizedBox(height: 40),
@@ -564,18 +577,6 @@ class _BasicHealthCheckupRow extends StatelessWidget {
       {
         'image': CareOnAssets.womenHealthPng,
         'title': isBangla ? 'নারী স্বাস্থ্য পরীক্ষা' : 'Women health\ncheckup'
-      },
-      {
-        'image': CareOnAssets.migrainePng,
-        'title': isBangla ? 'মাইগ্রেন ও পেশীর টান' : 'Migraine & Muscle\nTension'
-      },
-      {
-        'image': CareOnAssets.psychologicalDistressPng,
-        'title': isBangla ? 'মানসিক চাপ ও বিষণ্নতা' : 'Psychological\nDistress'
-      },
-      {
-        'image': CareOnAssets.allergyPng,
-        'title': isBangla ? 'পরিবেশগত অ্যালার্জি' : 'Environmental\nAllergy'
       },
     ];
 

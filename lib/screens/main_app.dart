@@ -7,30 +7,50 @@ import 'profile_screen.dart';
 import 'sos_screen.dart';
 import '../widgets/bottom_navbar.dart';
 
-class MainApp extends StatefulWidget {
+class LanguageProvider with ChangeNotifier {
+  bool _isBangla = false;
+
+  bool get isBangla => _isBangla;
+
+  void toggleLanguage() {
+    _isBangla = !_isBangla;
+    notifyListeners();
+  }
+}
+
+class MainApp extends StatelessWidget {
   final bool isBangla;
   const MainApp({super.key, this.isBangla = false});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => LanguageProvider().._isBangla = isBangla,
+      child: const _MainAppContent(),
+    );
+  }
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppContent extends StatefulWidget {
+  const _MainAppContent({super.key});
+
+  @override
+  State<_MainAppContent> createState() => _MainAppContentState();
+}
+
+class _MainAppContentState extends State<_MainAppContent> {
   int _currentIndex = 0;
   late List<Widget> _screens;
-  late bool _isBangla;
 
   @override
   void initState() {
     super.initState();
-    _isBangla = widget.isBangla;
     _initializeScreens();
   }
 
   void _initializeScreens() {
     _screens = [
       HomeScreen(
-        isBangla: _isBangla,
         onSosTap: _handleSosTap,
         onViewAllServices: () {
           setState(() => _currentIndex = 1);
@@ -39,15 +59,13 @@ class _MainAppState extends State<MainApp> {
           // Handle view all checkups
         },
       ),
-      ServicesScreen(isBangla: _isBangla),
+      ServicesScreen(),
       const SizedBox(), // Placeholder for SOS (handled by floating button)
-      HealthTipsScreen(isBangla: _isBangla),
+      HealthTipsScreen(),
       ProfileScreen(
-        isBangla: _isBangla,
         onLanguageToggle: () {
-          setState(() {
-            _isBangla = !_isBangla;
-          });
+          final provider = Provider.of<LanguageProvider>(context, listen: false);
+          provider.toggleLanguage();
         },
       ),
     ];
@@ -78,13 +96,16 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LanguageProvider>(context);
+    final isBangla = provider.isBangla;
+
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavbar(
         currentIndex: _currentIndex,
         onTabSelected: _handleTabSelected,
         onSosTap: _handleSosTap,
-        isBangla: _isBangla,
+        isBangla: isBangla,
       ),
     );
   }

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/assets.dart';
 import '../core/state/user_session.dart';
-import 'home/home_screen.dart';
+import 'main_app.dart';
 import 'otp_verification_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => HomeScreen(isBangla: _isBangla)),
+      MaterialPageRoute(builder: (_) => MainApp(isBangla: _isBangla)),
       (route) => false,
     );
   }

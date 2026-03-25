@@ -56,8 +56,14 @@ class _MainAppState extends State<MainApp> {
   }
 
   void _handleSosTap() {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => const SosScreen()),
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (context) => const SosScreen(),
     );
   }
 

@@ -566,7 +566,7 @@ class _BasicHealthCheckupRow extends StatelessWidget {
         'title': isBangla ? 'নারী স্বাস্থ্য পরীক্ষা' : 'Women health\ncheckup'
       },
       {
-        'image': CareOnAssets.migraineSyndromePng,
+        'image': CareOnAssets.migrainePng,
         'title': isBangla ? 'মাইগ্রেন ও পেশীর টান' : 'Migraine & Muscle\nTension'
       },
       {
@@ -574,7 +574,7 @@ class _BasicHealthCheckupRow extends StatelessWidget {
         'title': isBangla ? 'মানসিক চাপ ও বিষণ্নতা' : 'Psychological\nDistress'
       },
       {
-        'image': CareOnAssets.environmentalAllergyPng,
+        'image': CareOnAssets.allergyPng,
         'title': isBangla ? 'পরিবেশগত অ্যালার্জি' : 'Environmental\nAllergy'
       },
     ];

@@ -1,14 +1,14 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../core/state/user_session.dart';
 import '../core/state/language_provider.dart';
-import '../main.dart';
+// import '../main.dart';
 import 'login_screen.dart';
 import 'support_screen.dart';
 
@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
     this.onLanguageToggle,
   });
 
-  Future<void> _showNotification() async {
+/*       Future<void> _showNotification() async {
     const AndroidNotificationDetails androidNotificationDetails =
         AndroidNotificationDetails(
       'care_on_channel_id',
@@ -49,7 +49,40 @@ class ProfileScreen extends StatelessWidget {
       'This is a test notification from your CareOn app!',
       notificationDetails,
     );
-  }
+  }       */                  //  This is the test notification button    >>>>>Commenting this section for now as it's not implemented yet<<<<
+
+/*     void _clearCache(BuildContext context, bool isBangla) {
+    // Show a loading dialog
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+        child: Container(
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: const CircularProgressIndicator(color: Color(0xFF059669)),
+        ),
+      ),
+    );
+
+    // Simulate cache clearing
+    Future.delayed(const Duration(seconds: 2), () {
+      if (!context.mounted) return;
+      Navigator.pop(context); // Close loading dialog
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(isBangla ? 'ক্যাশে সফলভাবে পরিষ্কার করা হয়েছে!' : 'Cache cleared successfully!'),
+          backgroundColor: const Color(0xFF059669),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
+      );
+    });
+  }       */                 //  This is clear cash button    >>>>>Commenting this section for now as it's not implemented yet<<<<
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +95,7 @@ class ProfileScreen extends StatelessWidget {
 
     final displayName = name != null && name.isNotEmpty
         ? name
-        : (isBangla ? 'জয় চৌধুরী' : 'Joy Chowdhury');
+        : (isBangla ? 'জয় চৌধুরী' : 'Joy Chowder');
     final displayPhone = phone != null && phone.isNotEmpty
         ? phone
         : '+880 1712 345678';
@@ -187,15 +220,23 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                          _buildProfileTile(
+                      /*    _buildProfileTile(
                             icon: Icons.calendar_today_outlined,
                             title: isBangla ? 'আমার বুকিং' : 'My Bookings',
                             iconColor: const Color(0xFF3B82F6),
                             bgColor: const Color(0xFFEFF6FF),
                             onTap: () {},
-                          ),
+                          ),  */                    //  This is the my booking button    >>>>>Commenting this section for now as it's not implemented yet<<<<
                           _buildDivider(),
                           _buildLanguageTile(isBangla: isBangla),
+                          _buildDivider(),
+                   /*       _buildProfileTile(
+                            icon: Icons.cleaning_services_rounded,
+                            title: isBangla ? 'ক্যাশে পরিষ্কার করুন' : 'Clear Cache',
+                            iconColor: const Color(0xFF8B5CF6),
+                            bgColor: const Color(0xFFF5F3FF),
+                            onTap: () => _clearCache(context, isBangla),
+                          ),
                           _buildDivider(),
                           _buildProfileTile(
                             icon: Icons.notifications_active_outlined,
@@ -208,16 +249,16 @@ class ProfileScreen extends StatelessWidget {
                           _buildProfileTile(
                             icon: Icons.person_outline_rounded,
                             title: isBangla ? 'পরিবারের সদস্য' : 'Family Members',
-                            iconColor: const Color(0xFF8B5CF6),
-                            bgColor: const Color(0xFFF5F3FF),
+                            iconColor: const Color(0xFF10B981),
+                            bgColor: const Color(0xFFECFDF5),
                             onTap: () {},
                           ),
                           _buildDivider(),
                           _buildProfileTile(
                             icon: Icons.location_on_outlined,
                             title: isBangla ? 'সংরক্ষিত ঠিকানা' : 'Saved Addresses',
-                            iconColor: const Color(0xFF10B981),
-                            bgColor: const Color(0xFFECFDF5),
+                            iconColor: const Color(0xFF0EA5E9),
+                            bgColor: const Color(0xFFF0F9FF),
                             onTap: () {},
                           ),
                           _buildDivider(),
@@ -227,8 +268,8 @@ class ProfileScreen extends StatelessWidget {
                             iconColor: const Color(0xFFF59E0B),
                             bgColor: const Color(0xFFFFFBEB),
                             onTap: () {},
-                          ),
-                          _buildDivider(),
+                          ),                 */                     //  This are some other buttons    >>>>>Commenting this section for now as it's not implemented yet<<<<
+                        _buildDivider(),
                           _buildProfileTile(
                             icon: Icons.help_outline_rounded,
                             title: isBangla ? 'সাপোর্ট ও সহায়তা' : 'Support & Help',

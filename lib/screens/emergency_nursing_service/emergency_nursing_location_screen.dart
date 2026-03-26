@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import '../../main.dart';
-import 'caregiver_booking_utils.dart';
-import 'caregiver_package_screen.dart';
+import 'emergency_nursing_booking_utils.dart';
+import 'emergency_nursing_service_screen.dart';
 
-class CaregiverLocationScreen extends StatefulWidget {
+class EmergencyNursingLocationScreen extends StatefulWidget {
   final bool isBangla;
-  final BookingData bookingData;
-  const CaregiverLocationScreen({super.key, required this.isBangla, required this.bookingData});
+  final EmergencyNursingBookingData bookingData;
+  const EmergencyNursingLocationScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<CaregiverLocationScreen> createState() => _CaregiverLocationScreenState();
+  State<EmergencyNursingLocationScreen> createState() => _EmergencyNursingLocationScreenState();
 }
 
-class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
+class _EmergencyNursingLocationScreenState extends State<EmergencyNursingLocationScreen> {
   String? _selectedArea;
 
   final List<String> _areas = [
@@ -47,7 +47,7 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            BookingStepIndicator(currentStep: 1),
+            EmergencyNursingStepIndicator(currentStep: 1),
             const Divider(height: 1),
             Expanded(
               child: SingleChildScrollView(
@@ -160,7 +160,7 @@ class _CaregiverLocationScreenState extends State<CaregiverLocationScreen> {
                         widget.bookingData.area = _selectedArea;
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => CaregiverPackageScreen(
+                            builder: (_) => EmergencyNursingServiceScreen(
                               isBangla: widget.isBangla,
                               bookingData: widget.bookingData,
                             ),

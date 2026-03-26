@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'baby_care_booking_utils.dart';
-import 'baby_care_info_screen.dart';
+import '../../main.dart';
+import 'emergency_nursing_booking_utils.dart';
+import 'emergency_nursing_address_screen.dart';
 
-class BabyCareScheduleScreen extends StatefulWidget {
+class EmergencyNursingScheduleScreen extends StatefulWidget {
   final bool isBangla;
-  final BabyCareBookingData bookingData;
-  const BabyCareScheduleScreen({super.key, required this.isBangla, required this.bookingData});
+  final EmergencyNursingBookingData bookingData;
+  const EmergencyNursingScheduleScreen({super.key, required this.isBangla, required this.bookingData});
 
   @override
-  State<BabyCareScheduleScreen> createState() => _BabyCareScheduleScreenState();
+  State<EmergencyNursingScheduleScreen> createState() => _EmergencyNursingScheduleScreenState();
 }
 
-class _BabyCareScheduleScreenState extends State<BabyCareScheduleScreen> {
+class _EmergencyNursingScheduleScreenState extends State<EmergencyNursingScheduleScreen> {
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
       context: context,
@@ -43,14 +44,14 @@ class _BabyCareScheduleScreenState extends State<BabyCareScheduleScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          widget.isBangla ? 'সময়সূচী' : 'Schedule',
+          widget.isBangla ? 'সময়সূচী' : 'Schedule',
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
         ),
       ),
       body: SafeArea(
         child: Column(
           children: [
-            BabyCareStepIndicator(currentStep: 3),
+            EmergencyNursingStepIndicator(currentStep: 3),
             const Divider(height: 1),
             Expanded(
               child: SingleChildScrollView(
@@ -60,13 +61,13 @@ class _BabyCareScheduleScreenState extends State<BabyCareScheduleScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.isBangla ? 'পছন্দসই সময়সূচী নির্বাচন করুন' : 'Select Preferred Schedule',
+                      widget.isBangla ? 'পছন্দসই সময়সূচী নির্বাচন করুন' : 'Select Preferred Schedule',
                       style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF111827)),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       widget.isBangla 
-                        ? 'আপনার সুবিধাজনক তারিখ এবং সময় নির্ধারণ করুন' 
+                        ? 'আপনার সুবিধাজনক তারিখ এবং সময় নির্ধারণ করুন' 
                         : 'Choose your convenient date and time',
                       style: const TextStyle(color: Color(0xFF6B7280), fontSize: 14),
                     ),
@@ -88,13 +89,13 @@ class _BabyCareScheduleScreenState extends State<BabyCareScheduleScreen> {
                     const SizedBox(height: 24),
                     
                     Text(
-                      widget.isBangla ? 'পছন্দসই সময় *' : 'Preferred Time *', 
+                      widget.isBangla ? 'পছন্দসই সময় *' : 'Preferred Time *', 
                       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF374151))
                     ),
                     const SizedBox(height: 12),
                     _buildPickerBox(
                       value: widget.bookingData.time == null 
-                        ? (widget.isBangla ? 'সময় নির্বাচন করুন' : 'Select preferred time') 
+                        ? (widget.isBangla ? 'সময় নির্বাচন করুন' : 'Select preferred time') 
                         : widget.bookingData.time!.format(context),
                       onTap: _pickTime,
                       icon: Icons.access_time_outlined,
@@ -141,22 +142,23 @@ class _BabyCareScheduleScreenState extends State<BabyCareScheduleScreen> {
                       onPressed: () {
                         if (widget.bookingData.date == null || widget.bookingData.time == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(widget.isBangla ? 'অনুগ্রহ করে তারিখ এবং সময় উভয়ই নির্বাচন করুন' : 'Please select both date and time'))
+                            SnackBar(content: Text(widget.isBangla ? 'অনুগ্রহ করে তারিখ এবং সময় উভয়ই নির্বাচন করুন' : 'Please select both date and time'))
                           );
                           return;
                         }
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => BabyCareInfoScreen(
-                              isBangla: widget.isBangla, 
-                              bookingData: widget.bookingData
+                            builder: (_) => EmergencyNursingAddressScreen(
+                              isBangla: widget.isBangla,
+                              location: widget.bookingData.area ?? '',
+                              bookingData: widget.bookingData,
                             ),
                           ),
                         );
                       },
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 14),
-                        backgroundColor: const Color(0xFF059669),
+                        backgroundColor: CareOnApp.careOnGreen,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       child: Text(
@@ -184,11 +186,11 @@ class _BabyCareScheduleScreenState extends State<BabyCareScheduleScreen> {
         decoration: BoxDecoration(
           color: const Color(0xFFF9FAFB),
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: hasValue ? const Color(0xFF059669) : Colors.grey.shade200, width: 1.5),
+          border: Border.all(color: hasValue ? CareOnApp.careOnGreen : Colors.grey.shade200, width: 1.5),
         ),
         child: Row(
           children: [
-            Icon(icon, size: 20, color: hasValue ? const Color(0xFF059669) : Colors.grey.shade400),
+            Icon(icon, size: 20, color: hasValue ? CareOnApp.careOnGreen : Colors.grey.shade400),
             const SizedBox(width: 12),
             Text(
               value,

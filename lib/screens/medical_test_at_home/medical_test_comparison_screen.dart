@@ -159,7 +159,7 @@ class _MedicalTestComparisonScreenState extends State<MedicalTestComparisonScree
                           decoration: BoxDecoration(
                             border: Border.all(color: isSelected ? primaryGreen : Colors.grey.shade200),
                             borderRadius: BorderRadius.circular(12),
-                            color: isSelected ? primaryGreen.withOpacity(0.05) : Colors.white,
+                            color: isSelected ? primaryGreen.withValues(alpha: 0.5) : Colors.white,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

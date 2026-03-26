@@ -14,7 +14,7 @@ import '../caregiver_for_elderly/caregiver_service_details_screen.dart';
 import '../physiotherapy_at_home/physiotherapy_service_details_screen.dart';
 import '../nursing_care_service/nursing_service_details_screen.dart';
 import '../baby_care_service/baby_care_service_details_screen.dart';
-import '../health_checkup_packages_screen.dart';
+// import '../health_checkup_packages_screen.dart';           //  This is the health pack    >>>>>Commenting this section for now as it's not implemented yet<<<<
 import '../emergency_nursing_service/emergency_nursing_service_details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -167,7 +167,9 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 40),
                       _PromoBanner(isBangla: isBangla),
                       const SizedBox(height: 40),
-                      _BasicHealthCheckupRow(
+
+
+                  /*    _BasicHealthCheckupRow(                      //  This is the health pack    >>>>>Commenting this section for now as it's not implemented yet<<<<
                         onViewAll: onViewAllCheckups ?? () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -177,9 +179,12 @@ class HomeScreen extends StatelessWidget {
                         },
                         isBangla: isBangla,
                       ),
-                      const SizedBox(height: 40),
-                      _RecentActivitySection(isBangla: isBangla),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 40),     */
+
+
+
+                      // _RecentActivitySection(isBangla: isBangla),     //        Recent Activity >>>>>Commenting this section for now as it's not implemented yet<<<<
+                      // const SizedBox(height: 40),
                     ],
                   ),
                 ),
@@ -583,7 +588,7 @@ class _PromoBanner extends StatelessWidget {
   }
 }
 
-class _BasicHealthCheckupRow extends StatelessWidget {
+ /*  class _BasicHealthCheckupRow extends StatelessWidget {
   final VoidCallback? onViewAll;
   final bool isBangla;
   const _BasicHealthCheckupRow({this.onViewAll, this.isBangla = false});
@@ -664,7 +669,7 @@ class _BasicHealthCheckupRow extends StatelessWidget {
       ],
     );
   }
-}
+}    */   //  This is the health pack    >>>>>Commenting this section for now as it's not implemented yet<<<<
 
 class _AnimatedBookNowButton extends StatefulWidget {
   final bool isBangla;
@@ -726,7 +731,7 @@ class _AnimatedBookNowButtonState extends State<_AnimatedBookNowButton> with Sin
   }
 }
 
-class _RecentActivitySection extends StatelessWidget {
+  /*class _RecentActivitySection extends StatelessWidget {
   final bool isBangla;
   const _RecentActivitySection({this.isBangla = false});
 
@@ -769,4 +774,4 @@ class _RecentActivitySection extends StatelessWidget {
       ],
     );
   }
-}
+}*/                               // >>>>>Commenting this section for now as it's not implemented yet<<<<

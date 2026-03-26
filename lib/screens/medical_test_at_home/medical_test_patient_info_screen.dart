@@ -105,21 +105,35 @@ class _MedicalTestPatientInfoScreenState extends State<MedicalTestPatientInfoScr
                     Text(widget.isBangla ? 'বুকিং কার জন্য *' : 'Booking For *', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
                     Row(
                       children: [
-                        Radio<bool>(
-                          value: true,
-                          groupValue: widget.bookingData.isForSelf,
-                          onChanged: (val) => setState(() => widget.bookingData.isForSelf = val!),
-                          activeColor: primaryGreen,
+                        GestureDetector(
+                          onTap: () => setState(() => widget.bookingData.isForSelf = true),
+                          child: Row(
+                            children: [
+                              Icon(
+                                widget.bookingData.isForSelf ? Icons.check_circle : Icons.circle_outlined,
+                                size: 20,
+                                color: primaryGreen,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(widget.isBangla ? 'নিজে' : 'Self', style: const TextStyle(fontSize: 12)),
+                            ],
+                          ),
                         ),
-                        Text(widget.isBangla ? 'নিজে' : 'Self', style: const TextStyle(fontSize: 12)),
                         const SizedBox(width: 20),
-                        Radio<bool>(
-                          value: false,
-                          groupValue: widget.bookingData.isForSelf,
-                          onChanged: (val) => setState(() => widget.bookingData.isForSelf = val!),
-                          activeColor: primaryGreen,
+                        GestureDetector(
+                          onTap: () => setState(() => widget.bookingData.isForSelf = false),
+                          child: Row(
+                            children: [
+                              Icon(
+                                !widget.bookingData.isForSelf ? Icons.check_circle : Icons.circle_outlined,
+                                size: 20,
+                                color: primaryGreen,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(widget.isBangla ? 'অন্য কেউ' : 'Someone Else', style: const TextStyle(fontSize: 12)),
+                            ],
+                          ),
                         ),
-                        Text(widget.isBangla ? 'অন্য কেউ' : 'Someone Else', style: const TextStyle(fontSize: 12)),
                       ],
                     ),
                     

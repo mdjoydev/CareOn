@@ -193,17 +193,19 @@ class _CaregiverAddressScreenState extends State<CaregiverAddressScreen> {
         Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
         Row(
           children: options.map((opt) {
+            final isSelected = (widget.bookingData.isForSelf && opt == 'Self') || (!widget.bookingData.isForSelf && opt == 'Someone Else');
             return Row(
               children: [
-                Radio<String>(
-                  value: opt,
-                  groupValue: widget.bookingData.isForSelf ? 'Self' : 'Someone Else',
-                  activeColor: CareOnApp.careOnGreen,
-                  onChanged: (val) {
-                    if (val != null) onSelect(val);
-                  },
+                Icon(
+                  isSelected ? Icons.check_circle : Icons.circle_outlined,
+                  size: 20,
+                  color: CareOnApp.careOnGreen,
                 ),
-                Text(opt, style: const TextStyle(fontSize: 13)),
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: () => onSelect(opt),
+                  child: Text(opt, style: const TextStyle(fontSize: 13)),
+                ),
                 const SizedBox(width: 20),
               ],
             );

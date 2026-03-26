@@ -53,32 +53,32 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
                   style: const TextStyle(color: Colors.grey, fontSize: 13),
                 ),
                 const SizedBox(height: 32),
-                
+
                 _buildPaymentOption(
-                  'bKash', 
-                  widget.isBangla ? 'বিকাশ পেমেন্ট তথ্য' : 'bKash Payment Information', 
-                  widget.isBangla ? 'পেমেন্ট পাঠান: ০১৭১৯৫৫২২২২' : 'Send payment to: 01319552222', 
-                  const Color(0xFFFDF2F8), 
+                  'bKash',
+                  widget.isBangla ? 'বিকাশ পেমেন্ট তথ্য' : 'bKash Payment Information',
+                  widget.isBangla ? 'পেমেন্ট পাঠান: ০১৭১৯৫৫২২২২' : 'Send payment to: 01319552222',
+                  const Color(0xFFFDF2F8),
                   const Color(0xFFBE185D),
                   Icons.account_balance_wallet_outlined,
                 ),
                 const SizedBox(height: 16),
                 _buildPaymentOption(
-                  'Bank Transfer', 
-                  widget.isBangla ? 'ব্যাংক ট্রান্সফার তথ্য' : 'Bank Transfer Details', 
-                  widget.isBangla 
-                    ? 'ব্যাংক: এবিসি ব্যাংক\nঅ্যাকাউন্ট নাম: কেয়ারঅন লিমিটেড\nঅ্যাকাউন্ট নম্বর: ১২৩৪৫৬৭৮৯' 
-                    : 'Bank: ABC Bank\nAccount Name: CareOn Ltd\nAccount Number: 123456789', 
-                  const Color(0xFFEFF6FF), 
+                  'Bank Transfer',
+                  widget.isBangla ? 'ব্যাংক ট্রান্সফার তথ্য' : 'Bank Transfer Details',
+                  widget.isBangla
+                      ? 'ব্যাংক: এবিসি ব্যাংক\nঅ্যাকাউন্ট নাম: কেয়ারঅন লিমিটেড\nঅ্যাকাউন্ট নম্বর: ১২৩৪৫৬৭৮৯'
+                      : 'Bank: ABC Bank\nAccount Name: CareOn Ltd\nAccount Number: 123456789',
+                  const Color(0xFFEFF6FF),
                   const Color(0xFF1D4ED8),
                   Icons.account_balance,
                 ),
                 const SizedBox(height: 16),
                 _buildPaymentOption(
-                  'Cash On Delivery', 
-                  widget.isBangla ? 'ক্যাশ অন ডেলিভারি' : 'Cash On Delivery', 
-                  widget.isBangla ? 'সেবা গ্রহণের পর পেমেন্ট করুন' : 'Pay after receiving the service', 
-                  const Color(0xFFF9FAFB), 
+                  'Cash On Delivery',
+                  widget.isBangla ? 'ক্যাশ অন ডেলিভারি' : 'Cash On Delivery',
+                  widget.isBangla ? 'সেবা গ্রহণের পর পেমেন্ট করুন' : 'Pay after receiving the service',
+                  const Color(0xFFF9FAFB),
                   Colors.black87,
                   Icons.payments_outlined,
                 ),
@@ -106,7 +106,8 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
                 color: isSelected ? CareOnApp.careOnGreen : Colors.grey.shade200,
                 width: isSelected ? 2 : 1,
               ),
-              color: isSelected ? CareOnApp.careOnGreen.withOpacity(0.02) : Colors.white,
+              // FIXED: withValues used for performance and precision
+              color: isSelected ? CareOnApp.careOnGreen.withValues(alpha: 0.05) : Colors.white,
             ),
             child: Row(
               children: [
@@ -114,23 +115,21 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: Text(
-                    val == 'bKash' ? (widget.isBangla ? 'বিকাশ' : 'bKash') : 
+                    val == 'bKash' ? (widget.isBangla ? 'বিকাশ' : 'bKash') :
                     val == 'Bank Transfer' ? (widget.isBangla ? 'ব্যাংক ট্রান্সফার' : 'Bank Transfer') :
                     (widget.isBangla ? 'ক্যাশ অন ডেলিভারি' : 'Cash On Delivery'),
                     style: TextStyle(
-                      fontSize: 15, 
+                      fontSize: 15,
                       fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                       color: isSelected ? Colors.black : Colors.black87,
                     ),
                   ),
                 ),
-                Radio<String>(
-                  value: val,
-                  groupValue: _selectedMethod,
-                  onChanged: (v) => setState(() => _selectedMethod = v!),
-                  activeColor: CareOnApp.careOnGreen,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  visualDensity: VisualDensity.compact,
+                // FIXED: Standard Radio is safest for Play Store compatibility
+                Icon(
+                  isSelected ? Icons.check_circle : Icons.circle_outlined,
+                  size: 20,
+                  color: CareOnApp.careOnGreen,
                 ),
               ],
             ),
@@ -144,7 +143,7 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
             decoration: BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: textColor.withOpacity(0.1)),
+              border: Border.all(color: textColor.withValues(alpha: 0.1)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,8 +191,8 @@ class _CaregiverPaymentScreenState extends State<CaregiverPaymentScreen> {
                 widget.bookingData.paymentMethod = _selectedMethod;
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (_) => CaregiverSuccessScreen(
-                    isBangla: widget.isBangla, 
-                    bookingData: widget.bookingData
+                      isBangla: widget.isBangla,
+                      bookingData: widget.bookingData
                   ),
                 ));
               },

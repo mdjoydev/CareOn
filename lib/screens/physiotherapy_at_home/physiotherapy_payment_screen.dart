@@ -106,7 +106,7 @@ class _PhysiotherapyPaymentScreenState extends State<PhysiotherapyPaymentScreen>
                 color: isSelected ? CareOnApp.careOnGreen : Colors.grey.shade200,
                 width: isSelected ? 2 : 1,
               ),
-              color: isSelected ? CareOnApp.careOnGreen.withOpacity(0.02) : Colors.white,
+              color: isSelected ? CareOnApp.careOnGreen.withValues(alpha: 0.02) : Colors.white,
             ),
             child: Row(
               children: [
@@ -124,11 +124,10 @@ class _PhysiotherapyPaymentScreenState extends State<PhysiotherapyPaymentScreen>
                     ),
                   ),
                 ),
-                Radio<String>(
-                  value: val,
-                  groupValue: _selectedMethod,
-                  onChanged: (v) => setState(() => _selectedMethod = v!),
-                  activeColor: CareOnApp.careOnGreen,
+                Icon(
+                  isSelected ? Icons.check_circle : Icons.circle_outlined,
+                  size: 20,
+                  color: CareOnApp.careOnGreen,
                 ),
               ],
             ),
@@ -142,7 +141,7 @@ class _PhysiotherapyPaymentScreenState extends State<PhysiotherapyPaymentScreen>
             decoration: BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: textColor.withOpacity(0.1)),
+              border: Border.all(color: textColor.withValues(alpha: 0.1)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

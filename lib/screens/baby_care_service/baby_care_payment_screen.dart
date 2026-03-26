@@ -123,13 +123,10 @@ class _BabyCarePaymentScreenState extends State<BabyCarePaymentScreen> {
                     ),
                   ),
                 ),
-                Radio<String>(
-                  value: val,
-                  groupValue: _selectedMethod,
-                  onChanged: (v) => setState(() => _selectedMethod = v!),
-                  activeColor: const Color(0xFF059669),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  visualDensity: VisualDensity.compact,
+                Icon(
+                  isSelected ? Icons.check_circle : Icons.circle_outlined,
+                  size: 20,
+                  color: isSelected ? const Color(0xFF059669) : Colors.grey,
                 ),
               ],
             ),

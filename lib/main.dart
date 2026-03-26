@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:provider/provider.dart';
 
 import 'core/theme/app_theme.dart';
 import 'screens/splash_screen.dart';
+import 'core/state/language_provider.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -31,7 +33,12 @@ void main() async {
     initializationSettings,
   );
 
-  runApp(const CareOnApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => LanguageProvider(),
+      child: const CareOnApp(),
+    ),
+  );
 }
 
 class CareOnApp extends StatelessWidget {

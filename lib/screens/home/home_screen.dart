@@ -4,16 +4,18 @@ import 'package:provider/provider.dart';
 
 import '../../constants/assets.dart';
 import '../../core/state/user_session.dart';
+import '../../core/state/language_provider.dart';
 import '../../core/theme/responsive.dart';
+import '../doctor_visit_at_home/doctor_visit_booking_screen.dart';
+import '../patients_attendant_service/patients_attendant_service_details_screen.dart';
 import '../services/services_screen.dart';
 import '../sos_screen.dart';
-import '../booking_screen.dart';
 import '../caregiver_for_elderly/caregiver_service_details_screen.dart';
 import '../physiotherapy_at_home/physiotherapy_service_details_screen.dart';
 import '../nursing_care_service/nursing_service_details_screen.dart';
 import '../baby_care_service/baby_care_service_details_screen.dart';
-import 'health_checkup_packages_screen.dart';
-import 'main_app.dart';
+import '../health_checkup_packages_screen.dart';
+import '../emergency_nursing_service/emergency_nursing_service_details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final VoidCallback? onSosTap;
@@ -57,10 +59,29 @@ class HomeScreen extends StatelessWidget {
           builder: (_) => BabyCareServiceDetailsScreen(isBangla: isBangla),
         ),
       );
-    } else {
+    } else if (label == 'Patient Attendant' || label == 'রোগীর অ্যাটেনডেন্ট') {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => BookingScreen(initialService: label),
+          builder: (_) => PatientsAttendantServiceDetailsScreen(isBangla: isBangla),
+        ),
+      );
+    } else if (label == 'Doctor Visit' || label == 'ডাক্তারের ভিজিট') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => DoctorVisitBookingScreen(isBangla: isBangla),
+        ),
+      );
+    } else if (label == 'Emergency Nursing' || label == 'জরুরি নার্সিং') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => EmergencyNursingServiceDetailsScreen(isBangla: isBangla),
+        ),
+      );
+    } else {
+      // For other services, navigate to the services screen
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => ServicesScreen(isBangla: isBangla),
         ),
       );
     }
@@ -433,7 +454,7 @@ class _ServiceCategoriesSection extends StatelessWidget {
       {'image': CareOnAssets.physiotherapyPng, 'label': isBangla ? 'ফিজিওথেরাপি' : 'Physiotherapy'},
       {'image': CareOnAssets.babyCarePng, 'label': isBangla ? 'বেবি কেয়ার' : 'Baby Care'},
       {'image': CareOnAssets.patientAttendantPng, 'label': isBangla ? 'রোগীর অ্যাটেনডেন্ট' : 'Patient Attendant'},
-      {'image': CareOnAssets.medicalTestPng, 'label': isBangla ? 'মেডিকেল টেস্ট' : 'Medical Test'},
+      {'image': CareOnAssets.doctorVisitPng, 'label': isBangla ? 'ডাক্তারের ভিজিট' : 'Doctor Visit'},
     ];
 
     return Column(

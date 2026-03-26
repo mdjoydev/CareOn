@@ -43,7 +43,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     }
 
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => HomeScreen(isBangla: _isBangla)),
+      MaterialPageRoute(builder: (_) => HomeScreen()),
       (route) => false,
     );
   }

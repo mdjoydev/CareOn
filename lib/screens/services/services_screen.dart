@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/assets.dart';
-import '../booking_screen.dart';
 import '../caregiver_for_elderly/caregiver_service_details_screen.dart';
-import '../patients_attendant_service/patients_attendant_service_details_screen.dart';
 import '../ambulance_support/ambulance_booking_screen.dart';
+import '../baby_care_service/baby_care_service_details_screen.dart';
+import '../nursing_care_service/nursing_service_details_screen.dart';
+import '../patients_attendant_service/patients_attendant_service_details_screen.dart';
+import '../physiotherapy_at_home/physiotherapy_service_details_screen.dart';
+import '../doctor_visit_at_home/doctor_visit_booking_screen.dart';
+import '../emergency_nursing_service/emergency_nursing_service_details_screen.dart';
+import '../medical_test_at_home/medical_test_selection_screen.dart';
+import '../medical_test_at_home/medical_test_booking_utils.dart';
 
 class ServicesScreen extends StatelessWidget {
   final bool isBangla;
@@ -32,9 +38,55 @@ class ServicesScreen extends StatelessWidget {
             builder: (_) => AmbulanceBookingScreen(isBangla: isBangla),
           ),
         );
-      } else {
+      } else if (service == 'Baby Care' || service == 'শিশু সেবা') {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (_) => BookingScreen(initialService: service)),
+          MaterialPageRoute(
+            builder: (_) => BabyCareServiceDetailsScreen(isBangla: isBangla),
+          ),
+        );
+      } else if (service == 'Nursing Care' || service == 'নার্সিং সেবা') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => NursingServiceDetailsScreen(isBangla: isBangla),
+          ),
+        );
+      } else if (service == 'Physiotherapy' || service == 'ফিজিওথেরাপি') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => PhysiotherapyServiceDetailsScreen(isBangla: isBangla),
+          ),
+        );
+      } else if (service == 'Doctor Visit' || service == 'ডাক্তারের ভিজিট') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => DoctorVisitBookingScreen(isBangla: isBangla),
+          ),
+        );
+      } else if (service == 'Emergency Nursing' || service == 'জরুরি নার্সিং') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => EmergencyNursingServiceDetailsScreen(isBangla: isBangla),
+          ),
+        );
+      } else if (service == 'Medical Test' || service == 'মেডিকেল টেস্ট') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => MedicalTestSelectionScreen(
+              isBangla: isBangla,
+              bookingData: MedicalTestBookingData(),
+            ),
+          ),
+        );
+      } else {
+        // For other services, show a simple message or navigate to home
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              isBangla 
+                ? 'এই সেবাটি শীঘ্রই উপলব্ধ হবে'
+                : 'This service will be available soon',
+            ),
+          ),
         );
       }
     }
@@ -172,7 +224,7 @@ class ServicesScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.02),
+                  color: Colors.black.withValues(alpha: 0.02),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -299,7 +351,7 @@ class ServicesScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.02),
+                  color: Colors.black.withValues(alpha: 0.02),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),

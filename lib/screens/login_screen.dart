@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => MainApp(isBangla: _isBangla)),
+      MaterialPageRoute(builder: (_) => const MainApp()),
       (route) => false,
     );
   }

@@ -49,7 +49,7 @@ class AmbulanceStepIndicator extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      width: 22,
+                      width: 160,
                       height: 22,
                       decoration: BoxDecoration(
                         color: isActive ? primaryGreen : Colors.white,

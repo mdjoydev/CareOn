@@ -105,7 +105,7 @@ class _BabyCarePaymentScreenState extends State<BabyCarePaymentScreen> {
                 color: isSelected ? const Color(0xFF059669) : Colors.grey.shade200,
                 width: isSelected ? 2 : 1,
               ),
-              color: isSelected ? const Color(0xFF059669).withOpacity(0.02) : Colors.white,
+              color: isSelected ? const Color(0xFF059669).withValues(alpha: 0.02) : Colors.white,
             ),
             child: Row(
               children: [
@@ -143,7 +143,7 @@ class _BabyCarePaymentScreenState extends State<BabyCarePaymentScreen> {
             decoration: BoxDecoration(
               color: bgColor,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: textColor.withOpacity(0.1)),
+              border: Border.all(color: textColor.withValues(alpha: 0.1)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

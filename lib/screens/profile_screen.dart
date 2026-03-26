@@ -7,10 +7,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../core/state/user_session.dart';
+import '../core/state/language_provider.dart';
 import '../main.dart';
 import 'login_screen.dart';
 import 'support_screen.dart';
-import 'main_app.dart';
 
 class ProfileScreen extends StatelessWidget {
   final VoidCallback? onLanguageToggle;
@@ -62,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
 
     final displayName = name != null && name.isNotEmpty
         ? name
-        : 'Joy Chowdhury';
+        : (isBangla ? 'জয় চৌধুরী' : 'Joy Chowdhury');
     final displayPhone = phone != null && phone.isNotEmpty
         ? phone
         : '+880 1712 345678';
@@ -300,6 +300,14 @@ class ProfileScreen extends StatelessWidget {
           children: [
             const Icon(Icons.language_rounded, color: Color(0xFF0EA5E9), size: 20),
             const SizedBox(width: 16),
+            Text(
+              isBangla ? 'ভাষা পরিবর্তন করুন' : 'Change Language',
+              style: GoogleFonts.inter(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFF1F2937),
+              ),
+            ),
             const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),

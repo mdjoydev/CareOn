@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'ambulance_support/ambulance_booking_screen.dart';
+import 'emergency_nursing_service/emergency_nursing_service_details_screen.dart';
+import 'doctor_visit_at_home/doctor_visit_booking_screen.dart';
+
 class SosScreen extends StatelessWidget {
   final bool isBangla;
   const SosScreen({super.key, this.isBangla = false});
@@ -58,14 +62,20 @@ class SosScreen extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   _EmergencyCard(
-                    title: isBangla ? 'অ্যাম্বুলেন্স কল করুন' : 'Call Ambulance',
-                    subtitle: '+880 131 955 2222',
+                    title: isBangla ? 'অ্যাম্বুলেন্স সহায়তা' : 'Ambulance Support',
+                    subtitle: isBangla ? '২৪/৭ অ্যাম্বুলেন্স সেবা' : '24/7 Ambulance Service',
                     icon: Icons.local_shipping_rounded,
                     iconBgColor: const Color(0xFFE11D48),
                     cardBgColor: const Color(0xFFFFF1F2),
                     textColor: const Color(0xFFE11D48),
-                    trailing: const Icon(Icons.call_rounded, color: Color(0xFFE11D48), size: 24),
-                    onTap: () {},
+                    trailing: const Icon(Icons.arrow_forward_rounded, color: Color(0xFFE11D48), size: 24),
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => AmbulanceBookingScreen(isBangla: isBangla),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 16),
                   _EmergencyCard(
@@ -76,18 +86,30 @@ class SosScreen extends StatelessWidget {
                     cardBgColor: const Color(0xFFFFFBEB),
                     textColor: const Color(0xFFB45309),
                     trailing: const Icon(Icons.arrow_forward_rounded, color: Color(0xFFF59E0B), size: 24),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => EmergencyNursingServiceDetailsScreen(isBangla: isBangla),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 16),
                   _EmergencyCard(
-                    title: isBangla ? 'অন-কল ডাক্তার' : 'On-call Doctor',
+                    title: isBangla ? 'ডাক্তারের ভিজিট' : 'Doctor Visit at Home',
                     subtitle: isBangla ? 'জরুরী পরামর্শ' : 'Emergency consultation',
                     icon: Icons.medical_services_rounded,
                     iconBgColor: const Color(0xFF3B82F6),
                     cardBgColor: const Color(0xFFEFF6FF),
                     textColor: const Color(0xFF1D4ED8),
                     trailing: const Icon(Icons.arrow_forward_rounded, color: Color(0xFF3B82F6), size: 24),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => DoctorVisitBookingScreen(isBangla: isBangla),
+                        ),
+                      );
+                    },
                   ),
                   
                   const SizedBox(height: 40),

@@ -14,7 +14,7 @@ class AmbulanceBookingScreen extends StatefulWidget {
 class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
   final _formKey = GlobalKey<FormState>();
   final AmbulanceBookingData _bookingData = AmbulanceBookingData();
-  
+
   final _nameController = TextEditingController();
   final _ageController = TextEditingController();
   final _emailController = TextEditingController();
@@ -44,15 +44,19 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 30)),
     );
+    if (!mounted) return;
     if (date != null) {
       final time = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
       );
+      if (!mounted) return;
       if (time != null) {
-        _bookingData.pickupDateTime = DateTime(
-          date.year, date.month, date.day, time.hour, time.minute
-        );
+        setState(() {
+          _bookingData.pickupDateTime = DateTime(
+              date.year, date.month, date.day, time.hour, time.minute
+          );
+        });
       }
     }
   }
@@ -65,7 +69,7 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
         );
         return;
       }
-      
+
       _bookingData.patientName = _nameController.text;
       _bookingData.patientAge = _ageController.text;
       _bookingData.email = _emailController.text;
@@ -147,7 +151,7 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
                     const SizedBox(height: 16),
                     _buildTextField(label: 'Patient Age *', controller: _ageController, hint: 'Enter age (e.g. 32)', keyboardType: TextInputType.number),
                     const SizedBox(height: 16),
-                    
+
                     _buildSectionTitle('Gender *'),
                     DropdownButtonFormField<String>(
                       decoration: _inputDecoration('Select one'),
@@ -158,7 +162,7 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
                     const SizedBox(height: 16),
                     _buildTextField(label: 'Email Address *', controller: _emailController, hint: 'Email Address', keyboardType: TextInputType.emailAddress),
                     const SizedBox(height: 16),
-                    
+
                     _buildSectionTitle('Nationality *'),
                     DropdownButtonFormField<String>(
                       decoration: _inputDecoration('Select one'),
@@ -189,7 +193,7 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
                       validator: (val) => val == null ? 'Please select ambulance type' : null,
                     ),
                     const SizedBox(height: 16),
-                    
+
                     _buildSectionTitle('Booking Type *'),
                     DropdownButtonFormField<String>(
                       decoration: _inputDecoration('Select one'),
@@ -217,9 +221,9 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
                             const Icon(Icons.calendar_today, color: CareOnApp.careOnGreen, size: 20),
                             const SizedBox(width: 12),
                             Text(
-                              _bookingData.pickupDateTime == null 
-                                ? 'Select Date & Time' 
-                                : '${_bookingData.pickupDateTime!.day}/${_bookingData.pickupDateTime!.month}/${_bookingData.pickupDateTime!.year} ${_bookingData.pickupDateTime!.hour}:${_bookingData.pickupDateTime!.minute}',
+                              _bookingData.pickupDateTime == null
+                                  ? 'Select Date & Time'
+                                  : '${_bookingData.pickupDateTime!.day}/${_bookingData.pickupDateTime!.month}/${_bookingData.pickupDateTime!.year} ${_bookingData.pickupDateTime!.hour}:${_bookingData.pickupDateTime!.minute}',
                               style: const TextStyle(fontWeight: FontWeight.w600),
                             ),
                           ],
@@ -228,7 +232,6 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
                     ),
                     const SizedBox(height: 24),
 
-                    _buildSectionTitle('Additional Services (if required)'),
                     _buildAdditionalServiceRadio('CG', 'Care Giver'),
                     _buildAdditionalServiceRadio('N', 'Nurse'),
                     _buildAdditionalServiceRadio('A', 'Patient Attendant'),
@@ -303,21 +306,56 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
     return GestureDetector(
       onTap: () => onTap(value),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        height: 48,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFFECFDF5) : const Color(0xFFF9FAFB),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: isSelected ? CareOnApp.careOnGreen : const Color(0xFFF3F4F6)),
-        ),
-        child: Center(
-          child: Text(
-            label,
-            style: TextStyle(
-              color: isSelected ? const Color(0xFF065F46) : const Color(0xFF374151),
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              fontSize: 13,
+                  color: isSelected ? CareOnApp.careOnGreen.withValues(alpha: 0.1) : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: isSelected ? CareOnApp.careOnGreen : Colors.grey.shade300),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 5,
+              offset: const Offset(0, 2),
             ),
-          ),
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                color: isSelected ? CareOnApp.careOnGreen : Colors.white,
+                shape: BoxShape.circle,
+                border: Border.all(color: isSelected ? CareOnApp.careOnGreen : Colors.grey.shade300),
+              ),
+              child: Center(
+                child: Text(
+                  value == 'Self' ? 'S' : 'O',
+                  style: TextStyle(
+                    color: isSelected ? Colors.white : CareOnApp.careOnGreen,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: isSelected ? Colors.black : Colors.black87,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -335,7 +373,7 @@ class _AmbulanceBookingScreenState extends State<AmbulanceBookingScreen> {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isSelected ? CareOnApp.careOnGreen.withOpacity(0.05) : Colors.white,
+          color: isSelected ? CareOnApp.careOnGreen.withValues(alpha: 0.05) : Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: isSelected ? CareOnApp.careOnGreen : Colors.grey.shade200),
         ),

@@ -206,7 +206,7 @@ class _BabyCarePackageScreenState extends State<BabyCarePackageScreen> {
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: isSelected ? const Color(0xFFF0FDF4) : Colors.white,
+                              color: isSelected ? const Color(0xFFF0FDF4) : Colors.white,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: isSelected ? const Color(0xFF059669) : Colors.grey.shade200, width: 1.5),
           ),

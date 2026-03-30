@@ -5,6 +5,6 @@ class UserSession {
 
   String? name;
   String? phone;
+  String? email;
   String? photoPath;
 }
-

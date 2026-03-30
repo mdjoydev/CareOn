@@ -72,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 2), () {
       if (!context.mounted) return;
       Navigator.pop(context); // Close loading dialog
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(isBangla ? 'ক্যাশে সফলভাবে পরিষ্কার করা হয়েছে!' : 'Cache cleared successfully!'),
@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<LanguageProvider>(context);
     final isBangla = provider.isBangla;
-    
+
     final session = UserSession.instance;
     final name = session.name?.trim();
     final phone = session.phone?.trim();
@@ -127,10 +127,10 @@ class ProfileScreen extends StatelessWidget {
                         : null,
                     child: session.photoPath == null
                         ? const Icon(
-                            Icons.person_outline_rounded,
-                            color: Color(0xFF059669),
-                            size: 40,
-                          )
+                      Icons.person_outline_rounded,
+                      color: Color(0xFF059669),
+                      size: 40,
+                    )
                         : null,
                   ),
                 ),
@@ -220,7 +220,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       child: Column(
                         children: [
-                      /*    _buildProfileTile(
+                          /*    _buildProfileTile(
                             icon: Icons.calendar_today_outlined,
                             title: isBangla ? 'আমার বুকিং' : 'My Bookings',
                             iconColor: const Color(0xFF3B82F6),
@@ -230,7 +230,7 @@ class ProfileScreen extends StatelessWidget {
                           _buildDivider(),
                           _buildLanguageTile(isBangla: isBangla),
                           _buildDivider(),
-                   /*       _buildProfileTile(
+                          /*       _buildProfileTile(
                             icon: Icons.cleaning_services_rounded,
                             title: isBangla ? 'ক্যাশে পরিষ্কার করুন' : 'Clear Cache',
                             iconColor: const Color(0xFF8B5CF6),
@@ -269,7 +269,7 @@ class ProfileScreen extends StatelessWidget {
                             bgColor: const Color(0xFFFFFBEB),
                             onTap: () {},
                           ),                 */                     //  This are some other buttons    >>>>>Commenting this section for now as it's not implemented yet<<<<
-                        _buildDivider(),
+                          _buildDivider(),
                           _buildProfileTile(
                             icon: Icons.help_outline_rounded,
                             title: isBangla ? 'সাপোর্ট ও সহায়তা' : 'Support & Help',
@@ -292,7 +292,7 @@ class ProfileScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (_) => const LoginScreen()),
-                          (route) => false,
+                              (route) => false,
                         );
                       },
                       child: Container(
@@ -395,9 +395,9 @@ class ProfileScreen extends StatelessWidget {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: isLast 
-        ? const BorderRadius.only(bottomLeft: Radius.circular(24), bottomRight: Radius.circular(24))
-        : null,
+      borderRadius: isLast
+          ? const BorderRadius.only(bottomLeft: Radius.circular(24), bottomRight: Radius.circular(24))
+          : null,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         child: Row(
@@ -454,6 +454,7 @@ class _EditProfileSheet extends StatefulWidget {
 class _EditProfileSheetState extends State<_EditProfileSheet> {
   late final TextEditingController _nameController;
   late final TextEditingController _phoneController;
+  late final TextEditingController _emailController;
   String? _photoPath;
 
   @override
@@ -462,6 +463,7 @@ class _EditProfileSheetState extends State<_EditProfileSheet> {
     final session = UserSession.instance;
     _nameController = TextEditingController(text: session.name);
     _phoneController = TextEditingController(text: session.phone);
+    _emailController = TextEditingController(text: session.email);
     _photoPath = session.photoPath;
   }
 
@@ -469,6 +471,7 @@ class _EditProfileSheetState extends State<_EditProfileSheet> {
   void dispose() {
     _nameController.dispose();
     _phoneController.dispose();
+    _emailController.dispose();
     super.dispose();
   }
 
@@ -485,6 +488,7 @@ class _EditProfileSheetState extends State<_EditProfileSheet> {
     final session = UserSession.instance;
     session.name = _nameController.text.trim().isEmpty ? null : _nameController.text.trim();
     session.phone = _phoneController.text.trim().isEmpty ? null : _phoneController.text.trim();
+    session.email = _emailController.text.trim().isEmpty ? null : _emailController.text.trim();
     session.photoPath = _photoPath;
     Navigator.of(context).pop();
   }
@@ -536,12 +540,15 @@ class _EditProfileSheetState extends State<_EditProfileSheet> {
                 ),
               ),
               const SizedBox(width: 16),
-              Text(
-                'Change photo',
-                style: GoogleFonts.inter(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFF059669),
+              GestureDetector(
+                onTap: _pickImage,
+                child: Text(
+                  'Change photo',
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF059669),
+                  ),
                 ),
               ),
             ],
@@ -559,6 +566,14 @@ class _EditProfileSheetState extends State<_EditProfileSheet> {
             keyboardType: TextInputType.phone,
             decoration: const InputDecoration(
               labelText: 'Phone number',
+            ),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              labelText: 'Email address',
             ),
           ),
           const SizedBox(height: 20),

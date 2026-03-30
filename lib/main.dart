@@ -64,7 +64,7 @@ class CareOnApp extends StatelessWidget {
           child: child!,
         );
       },
-      theme: AppTheme.light.copyWith(
+      theme: AppTheme.light(context).copyWith(
         colorScheme: ColorScheme.fromSeed(
           seedColor: careOnGreen,
           primary: careOnGreen,
@@ -95,7 +95,7 @@ class CareOnApp extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),
-            textStyle: AppTheme.light.textTheme.labelLarge?.copyWith(
+            textStyle: AppTheme.light(context).textTheme.labelLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),

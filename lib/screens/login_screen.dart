@@ -24,6 +24,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _signUpNameController = TextEditingController();
   final _signUpPhoneController = TextEditingController();
+  final _signUpEmailController = TextEditingController();
+  final _signUpPasswordController = TextEditingController();
 
   @override
   void initState() {
@@ -37,6 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
     _signInPasswordController.dispose();
     _signUpNameController.dispose();
     _signUpPhoneController.dispose();
+    _signUpEmailController.dispose();
+    _signUpPasswordController.dispose();
     super.dispose();
   }
 
@@ -76,12 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
   void _getVerificationCode() {
     final name = _signUpNameController.text.trim();
     final phone = _signUpPhoneController.text.trim();
+    final email = _signUpEmailController.text.trim();
+    final password = _signUpPasswordController.text.trim();
 
-    if (name.isEmpty || phone.isEmpty) {
+    if (name.isEmpty || phone.isEmpty || email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(_isBangla 
-          ? 'দয়া করে আপনার নাম এবং ফোন নম্বর দিন।' 
-          : 'Please fill in your name and phone number.')),
+          ? 'দয়া করে সব ঘরগুলো পূরণ করুন।' 
+          : 'Please fill in all the fields.')),
       );
       return;
     }
@@ -89,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final session = UserSession.instance;
     session.name = name;
     session.phone = phone;
+    session.email = email;
 
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -419,6 +426,14 @@ class _LoginScreenState extends State<LoginScreen> {
         _buildLabel(_isBangla ? 'ফোন নম্বর *' : 'Phone Number *'),
         const SizedBox(height: 8),
         _buildTextField(controller: _signUpPhoneController, hintText: '+880 1XXX...'),
+        const SizedBox(height: 20),
+        _buildLabel(_isBangla ? 'ইমেইল এড্রেস *' : 'Email Address *'),
+        const SizedBox(height: 8),
+        _buildTextField(controller: _signUpEmailController, hintText: 'your@email.com'),
+        const SizedBox(height: 20),
+        _buildLabel(_isBangla ? 'পাসওয়ার্ড *' : 'Password *'),
+        const SizedBox(height: 8),
+        _buildTextField(controller: _signUpPasswordController, hintText: '••••••••', isPassword: true),
         const SizedBox(height: 32),
         _buildPrimaryButton(_isBangla ? 'ভেরিফিকেশন কোড পান' : 'Get verification code', _getVerificationCode),
       ],

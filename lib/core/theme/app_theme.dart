@@ -6,7 +6,9 @@ import 'app_text_styles.dart';
 class AppTheme {
   const AppTheme._();
 
-  static ThemeData get light {
+  static ThemeData light(BuildContext context) {
+    final textTheme = AppTextStyles.getTextTheme(context);
+    
     final base = ThemeData(
       useMaterial3: true,
       scaffoldBackgroundColor: AppColors.background,
@@ -19,7 +21,7 @@ class AppTheme {
     );
 
     return base.copyWith(
-      textTheme: AppTextStyles.textTheme,
+      textTheme: textTheme,
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.background,
         elevation: 0,
@@ -42,7 +44,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide.none,
         ),
-        hintStyle: AppTextStyles.textTheme.bodyMedium,
+        hintStyle: textTheme.bodyMedium,
       ),
       bottomAppBarTheme: const BottomAppBarThemeData(
         color: Colors.white,
@@ -55,7 +57,7 @@ class AppTheme {
             borderRadius: BorderRadius.circular(16),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-          textStyle: AppTextStyles.textTheme.labelLarge,
+          textStyle: textTheme.labelLarge,
         ),
       ),
     );

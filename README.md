@@ -1,69 +1,72 @@
-# CareOn - Healthcare at Your Doorstep
+# CareOn - Professional Healthcare at Your Doorstep
 
-CareOn is a Flutter-based mobile application designed to provide professional healthcare services directly to users' homes. From nursing care to physiotherapy and emergency SOS assistance, CareOn ensures that quality medical support is just a tap away.
+CareOn is a high-performance, responsive Flutter application designed to bring quality medical services directly to users' homes. The app provides a seamless booking experience for a wide range of pathological tests, nursing care, and emergency medical assistance.
 
-## 🚀 Features
+## 🌟 Key Features
 
-- **Emergency SOS Assistance**: One-tap access to emergency ambulance and nursing services with a pulsing animation for quick identification.
-- **Service Categories**: Comprehensive range of services including:
-  - Elderly Care
-  - Professional Nursing Care
-  - Physiotherapy
-  - Baby Care
-  - Patient Attendants
-  - Medical Tests
-- **Health Checkup Packages**: Specialized packages like Basic Health Checkup and Women's Health Checkup.
-- **Support & Help**: Dedicated support section with Mobile, WhatsApp, Email, and Office Address details.
-- **Multilingual Support**: Fully localized in both **English** and **Bangla**.
-- **User Profiles**: Manage personal information, family members, saved addresses, and payment methods.
-- **Responsive Design**: Optimized for various screen sizes using custom responsive utilities.
-- **Modern UI**: Built with a clean, professional aesthetic using Google Fonts (Inter) and custom animations.
+### 🚑 Emergency & SOS Services
+- **Ambulance Support**: 24/7 access to ICU, NICU, Air, and Freezer van ambulances.
+- **Emergency Nursing**: Fast-response professional nurses for critical care.
+- **Doctor Visit at Home**: On-call doctors for emergency consultations and home visits.
+- **Pulsing SOS Banner**: High-visibility emergency button on the home screen for instant access.
 
-## 🛠️ Tech Stack
+### 🧪 Medical Test at Home
+- **Test Selection**: Search and select from various diagnostic tests (ADA, CBC, ESR, etc.).
+- **Lab Comparison**: Compare prices across trusted partners like **AmarLab**, **Popular Diagnostic Center**, **Thyrocare**, **Dr Lal Pathlabs**, and **United Hospital**.
+- **Home Sample Collection**: Schedule professional paramedics/nurses to collect samples from your address.
 
-- **Framework**: [Flutter](https://flutter.dev/)
-- **State Management**: Custom `UserSession` singleton.
-- **Local Notifications**: `flutter_local_notifications` for test alerts.
-- **Image Handling**: `image_picker` for profile photos.
-- **Fonts**: [Google Fonts](https://pub.dev/packages/google_fonts).
+### 👩‍⚕️ Professional Nursing & Care
+- **Elderly Care**: Specialized caregivers for the elderly and bedridden.
+- **Baby Care**: Professional nanny and neonatal care services.
+- **Physiotherapy**: Home-based therapy sessions with certified professionals.
+- **Patient Attendant**: Personal attendants for hospital or home support.
 
-## 📱 Screenshots
+### 🌍 Global Features
+- **Bilingual Interface**: Seamlessly switch between **English** and **Bangla** across the entire app.
+- **100% Responsive Design**: Adaptive UI that scales perfectly on any device size (Small phones to Tablets).
+- **Secure Authentication**: Robust Sign-Up/Sign-In flow requiring Name, Phone, Email, and Password.
+- **User Profile Management**: Edit personal details, change profile photos, and clear app cache for better performance.
 
-*(Add your screenshots here)*
+## 📂 Project Structure
 
-## 📥 Getting Started
+- `lib/core`:
+  - `state/`: Global state management using **Provider** (`LanguageProvider`) and Singleton (`UserSession`).
+  - `theme/`: Centralized `AppTheme`, custom `AppColors`, and dynamic `AppTextStyles` for auto-scaling fonts.
+- `lib/screens/`:
+  - `medical_test_at_home/`: Complete multi-step booking logic for pathological tests.
+  - `emergency_nursing_service/`, `ambulance_support/`, `doctor_visit_at_home/`: Specialized booking flows for emergency services.
+  - `home/`: Dynamic home screen with pulsing banners and service grids.
+  - `login_screen.dart` & `otp_verification_screen.dart`: Authentication logic.
+- `lib/widgets/`: Reusable components like the custom `BottomNavbar`.
+- `assets/`: Organized by service type for medical care, special healthcare, and lab partners.
 
-### Prerequisites
-- Flutter SDK (latest version recommended)
-- Android Studio / VS Code
-- An Android/iOS emulator or physical device
+## 🛠️ How to Use
 
-### Installation
+### 1. Installation
+Ensure you have the Flutter SDK installed.
+```bash
+flutter pub get
+```
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/mdjoydev/Care_On.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd care_on
-   ```
-3. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
-4. Run the app:
-   ```bash
-   flutter run
-   ```
+### 2. Running the App
+```bash
+flutter run
+```
 
-## 📄 License
+### 3. Basic Navigation
+- Use the **Bottom Navigation Bar** to switch between Home, Services, Tips, and Profile.
+- Click the **SOS Button** (Floating/Banner) for immediate medical assistance.
+- Go to **Profile > Change Language** to switch the app to Bangla.
+- Use **Profile > Edit Profile** to update your contact information or clear the app cache.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 🚀 Tech Stack & Libraries
+- **Framework**: Flutter (Material 3)
+- **State Management**: Provider
+- **Fonts**: Google Fonts (Inter & Roboto)
+- **Utilities**: `image_picker`, `flutter_local_notifications`, `intl`
+- **Architecture**: Domain-driven directory structure with a focus on modularity and scalability.
 
-## 📞 Contact
-
-**MD Joy **
-- **GitHub**: [mdjoydev](https://github.com/mdjoydev)
+---
+**Developed by MD Joy**
 - **Email**: info@careon.me
 - **Office**: House 06, Road 02, Block L, Banani, Dhaka 1213, Bangladesh

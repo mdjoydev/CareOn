@@ -17,18 +17,38 @@ dependencies:
   url_launcher: ^6.2.1
   flutter_local_notifications: ^17.2.2
   provider: ^6.1.2
+  shared_preferences: ^2.5.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: "assets/logo/splash screen3.png"
+  android_gravity: center
+  ios_content_mode: center
+  android_12:
+    image: "assets/logo/splash screen3.png"
+    color: "#ffffff"
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/app_icon/2app_icon.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/app_icon/2app_icon.png"
 
 flutter:
   uses-material-design: true
 
   assets:
     - assets/logo/
+    - assets/app_icon/
     - assets/Medical Care Services/
     - assets/Special Healthcare Services/
     - assets/Healthcare at your doorstep/

@@ -89,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
     final provider = Provider.of<LanguageProvider>(context);
     final isBangla = provider.isBangla;
 
-    final session = UserSession.instance;
+    final session = Provider.of<UserSession>(context);
     final name = session.name?.trim();
     final phone = session.phone?.trim();
 
@@ -289,10 +289,12 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
+                        await UserSession.instance.clearSession();
+                        if (!context.mounted) return;
                         Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(builder: (_) => const LoginScreen()),
-                              (route) => false,
+                          (route) => false,
                         );
                       },
                       child: Container(
@@ -484,12 +486,15 @@ class _EditProfileSheetState extends State<_EditProfileSheet> {
     });
   }
 
-  void _save() {
+  Future<void> _save() async {
     final session = UserSession.instance;
-    session.name = _nameController.text.trim().isEmpty ? null : _nameController.text.trim();
-    session.phone = _phoneController.text.trim().isEmpty ? null : _phoneController.text.trim();
-    session.email = _emailController.text.trim().isEmpty ? null : _emailController.text.trim();
-    session.photoPath = _photoPath;
+    await session.saveSession(
+      name: _nameController.text.trim().isEmpty ? null : _nameController.text.trim(),
+      phone: _phoneController.text.trim().isEmpty ? null : _phoneController.text.trim(),
+      email: _emailController.text.trim().isEmpty ? null : _emailController.text.trim(),
+      photoPath: _photoPath,
+    );
+    if (!mounted) return;
     Navigator.of(context).pop();
   }
 
@@ -497,94 +502,96 @@ class _EditProfileSheetState extends State<_EditProfileSheet> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-        left: 24,
-        right: 24,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 24,
-        top: 16,
+        bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              width: 40,
-              height: 4,
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(999),
-              ),
-            ),
-          ),
-          Text(
-            'Edit profile',
-            style: GoogleFonts.inter(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: const Color(0xFF111827),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Row(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: _pickImage,
-                child: CircleAvatar(
-                  radius: 32,
-                  backgroundColor: const Color(0xFFDCFCE7),
-                  backgroundImage: _photoPath != null ? FileImage(File(_photoPath!)) : null,
-                  child: _photoPath == null
-                      ? const Icon(Icons.camera_alt_rounded, color: Color(0xFF059669))
-                      : null,
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(999),
+                  ),
                 ),
               ),
-              const SizedBox(width: 16),
-              GestureDetector(
-                onTap: _pickImage,
-                child: Text(
-                  'Change photo',
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFF059669),
+              Text(
+                'Edit profile',
+                style: GoogleFonts.inter(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: const Color(0xFF111827),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: _pickImage,
+                    child: CircleAvatar(
+                      radius: 32,
+                      backgroundColor: const Color(0xFFDCFCE7),
+                      backgroundImage: _photoPath != null ? FileImage(File(_photoPath!)) : null,
+                      child: _photoPath == null
+                          ? const Icon(Icons.camera_alt_rounded, color: Color(0xFF059669))
+                          : null,
+                    ),
                   ),
+                  const SizedBox(width: 16),
+                  GestureDetector(
+                    onTap: _pickImage,
+                    child: Text(
+                      'Change photo',
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF059669),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Full name',
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                  labelText: 'Phone number',
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: 'Email address',
+                ),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _save,
+                  child: const Text('Save'),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 20),
-          TextField(
-            controller: _nameController,
-            decoration: const InputDecoration(
-              labelText: 'Full name',
-            ),
-          ),
-          const SizedBox(height: 12),
-          TextField(
-            controller: _phoneController,
-            keyboardType: TextInputType.phone,
-            decoration: const InputDecoration(
-              labelText: 'Phone number',
-            ),
-          ),
-          const SizedBox(height: 12),
-          TextField(
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-              labelText: 'Email address',
-            ),
-          ),
-          const SizedBox(height: 20),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _save,
-              child: const Text('Save'),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

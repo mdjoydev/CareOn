@@ -2,23 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 
+import 'screens/onboarding_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/main_app.dart';
 import 'core/theme/app_theme.dart';
-import 'screens/splash_screen.dart';
 import 'core/state/language_provider.dart';
+import 'core/state/user_session.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Initialize and load user session
+  await UserSession.instance.loadSession();
+
   // Android settings
   const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
+  AndroidInitializationSettings('@mipmap/ic_launcher');
 
   // iOS settings
   const DarwinInitializationSettings initializationSettingsDarwin =
-      DarwinInitializationSettings(
+  DarwinInitializationSettings(
     requestAlertPermission: true,
     requestBadgePermission: true,
     requestSoundPermission: true,
@@ -34,8 +40,11 @@ void main() async {
   );
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => LanguageProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LanguageProvider()),
+        ChangeNotifierProvider.value(value: UserSession.instance),
+      ],
       child: const CareOnApp(),
     ),
   );
@@ -101,7 +110,18 @@ class CareOnApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const SplashScreen(),
+      home: _getHome(),
     );
+  }
+
+  Widget _getHome() {
+    final session = UserSession.instance;
+    if (session.name != null && session.name!.isNotEmpty) {
+      return const MainApp();
+    } else if (session.hasSeenOnboarding) {
+      return LoginScreen();
+    } else {
+      return const OnboardingScreen();
+    }
   }
 }

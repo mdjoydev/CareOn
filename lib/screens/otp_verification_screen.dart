@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../core/state/user_session.dart';
 import '../main.dart';
 import 'main_app.dart';
 
@@ -33,7 +34,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     super.dispose();
   }
 
-  void _verify() {
+  Future<void> _verify() async {
     final otp = _otpController.text.trim();
     if (otp.length != 4) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -42,6 +43,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       return;
     }
 
+    // Save the session data that was set in LoginScreen
+    await UserSession.instance.saveSession();
+
+    if (!mounted) return;
     // Fixed: Navigate to MainApp instead of HomeScreen to show the bottom navigation bar
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => const MainApp()),

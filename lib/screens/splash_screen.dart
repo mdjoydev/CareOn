@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/assets.dart';
 import 'onboarding_screen.dart';
+import 'login_screen.dart';
 import 'main_app.dart';
 import '../core/state/user_session.dart';
 
@@ -26,8 +27,13 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const MainApp()),
         );
+      } else if (session.hasSeenOnboarding) {
+        // User not logged in, but has seen onboarding, go to login
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => LoginScreen()),
+        );
       } else {
-        // User not logged in, go to onboarding
+        // User not logged in and hasn't seen onboarding, go to onboarding
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const OnboardingScreen()),
         );

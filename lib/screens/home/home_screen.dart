@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
   void _onCategoryTap(BuildContext context, String label) {
     final provider = Provider.of<LanguageProvider>(context, listen: false);
     final isBangla = provider.isBangla;
-    
+
     if (label == 'Elderly Care' || label == 'বয়স্ক সেবা') {
       Navigator.of(context).push(
         MaterialPageRoute(
@@ -169,7 +169,7 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 40),
 
 
-                  /*    _BasicHealthCheckupRow(                      //  This is the health pack    >>>>>Commenting this section for now as it's not implemented yet<<<<
+                      /*    _BasicHealthCheckupRow(                      //  This is the health pack    >>>>>Commenting this section for now as it's not implemented yet<<<<
                         onViewAll: onViewAllCheckups ?? () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -248,7 +248,7 @@ class _Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final session = UserSession.instance;
+    final session = Provider.of<UserSession>(context);
     final displayName = (session.name?.isNotEmpty ?? false)
         ? session.name!
         : (isBangla ? 'জয় চৌধুরী' : 'Joy Chowdhury');
@@ -288,40 +288,10 @@ class _Header extends StatelessWidget {
         const SizedBox(width: 12),
         Row(
           children: [
-            _buildCircularIcon(Icons.notifications_none_rounded, hasBadge: true),
-            const SizedBox(width: 12),
             _buildProfileIcon(session.photoPath),
           ],
         ),
       ],
-    );
-  }
-
-  Widget _buildCircularIcon(IconData icon, {bool hasBadge = false}) {
-    return Container(
-      height: 48,
-      width: 48,
-      decoration: const BoxDecoration(color: Color(0xFFF3F4F6), shape: BoxShape.circle),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Icon(icon, color: const Color(0xFF1F2937), size: 26),
-          if (hasBadge)
-            Positioned(
-              right: 14,
-              top: 12,
-              child: Container(
-                height: 8,
-                width: 8,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFEF4444),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white, width: 1.5),
-                ),
-              ),
-            ),
-        ],
-      ),
     );
   }
 
@@ -337,10 +307,10 @@ class _Header extends StatelessWidget {
         child: photoPath != null
             ? Image.file(File(photoPath), fit: BoxFit.cover)
             : Container(
-                color: const Color(0xFFE1FBF2),
-                child: const Icon(Icons.person_outline_rounded,
-                    color: Color(0xFF10B981), size: 28),
-              ),
+          color: const Color(0xFFE1FBF2),
+          child: const Icon(Icons.person_outline_rounded,
+              color: Color(0xFF10B981), size: 28),
+        ),
       ),
     );
   }
@@ -588,7 +558,7 @@ class _PromoBanner extends StatelessWidget {
   }
 }
 
- /*  class _BasicHealthCheckupRow extends StatelessWidget {
+/*  class _BasicHealthCheckupRow extends StatelessWidget {
   final VoidCallback? onViewAll;
   final bool isBangla;
   const _BasicHealthCheckupRow({this.onViewAll, this.isBangla = false});
@@ -731,7 +701,7 @@ class _AnimatedBookNowButtonState extends State<_AnimatedBookNowButton> with Sin
   }
 }
 
-  /*class _RecentActivitySection extends StatelessWidget {
+/*class _RecentActivitySection extends StatelessWidget {
   final bool isBangla;
   const _RecentActivitySection({this.isBangla = false});
 

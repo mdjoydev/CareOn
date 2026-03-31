@@ -5,6 +5,8 @@ import '../constants/assets.dart';
 import '../core/state/user_session.dart';
 import 'main_app.dart';
 import 'otp_verification_screen.dart';
+import 'forgot_password_screen.dart';
+import 'provider_signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   final bool initialIsBangla;
@@ -50,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void _goToHome() {
+  Future<void> _goToHome() async {
     final email = _signInEmailController.text.trim();
     final password = _signInPasswordController.text.trim();
 
@@ -67,10 +69,17 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     final session = UserSession.instance;
-    if (session.name == null || session.name!.isEmpty) {
-      session.name = email.split('@')[0];
+    await session.saveSession(
+      name: email.split('@')[0],
+      email: email.contains('@') ? email : null,
+      phone: !email.contains('@') ? email : null,
+    );
+
+    if (_rememberMe) {
+      // Logic for persistent login is handled by UserSession which uses SharedPreferences
     }
 
+    if (!mounted) return;
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => const MainApp()),
       (route) => false,
@@ -96,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
     session.name = name;
     session.phone = phone;
     session.email = email;
+    // Data is saved to SharedPreferences in OtpVerificationScreen after successful verification
 
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -291,19 +301,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          style: GoogleFonts.inter(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: _isBangla ? 'সেবা প্রদানকারী হিসেবে যোগ দিন' : 'Join as a Care Provider',
-                              style: const TextStyle(color: Color(0xFF00A66C)),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ProviderSignupScreen(isBangla: _isBangla),
                             ),
-                          ],
+                          );
+                        },
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            style: GoogleFonts.inter(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: _isBangla ? 'সেবা প্রদানকারী হিসেবে যোগ দিন' : 'Join as a Care Provider',
+                                style: const TextStyle(color: Color(0xFF00A66C)),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -397,7 +416,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => ForgotPasswordScreen(isBangla: _isBangla),
+                  ),
+                );
+              },
               child: Text(
                 _isBangla ? 'পাসওয়ার্ড ভুলে গেছেন?' : 'Forgot password?',
                 style: GoogleFonts.inter(

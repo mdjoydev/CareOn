@@ -5,6 +5,7 @@ allprojects {
     }
 }
 
+// Build directory configuration - output to project root build folder for Flutter compatibility
 val rootBuildDir = rootProject.projectDir.parentFile.resolve("build")
 rootProject.layout.buildDirectory.set(rootBuildDir)
 
@@ -19,6 +20,13 @@ subprojects {
         sourceCompatibility = "17"
         targetCompatibility = "17"
         options.compilerArgs.add("-Xlint:-options")
+    }
+
+    // Disable Kotlin incremental compilation to avoid cross-drive issues
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            incremental = false
+        }
     }
 }
 

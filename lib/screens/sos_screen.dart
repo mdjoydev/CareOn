@@ -112,17 +112,6 @@ class SosScreen extends StatelessWidget {
                     },
                   ),
                   
-                  const SizedBox(height: 40),
-                  Center(
-                    child: Text(
-                      isBangla ? 'আমাদের অফিস খুঁজে পাচ্ছেন না?' : 'Need help locating our office?',
-                      style: GoogleFonts.inter(
-                        fontSize: 14,
-                        color: const Color(0xFF94A3B8),
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

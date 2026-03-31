@@ -46,16 +46,7 @@ class SupportScreen extends StatelessWidget {
               description: isBangla ? '২৪ ঘণ্টার মধ্যে প্রতিক্রিয়া' : 'Response within 24 hours',
               color: const Color(0xFFEC4899),
             ),
-            const SizedBox(height: 16),
-            _buildContactCard(
-              icon: Icons.location_on_outlined,
-              title: isBangla ? 'অফিস ঠিকানা' : 'Office Address',
-              subtitle: isBangla
-                  ? 'হাউস ০৬, রোড ০২, ব্লক এল, বনানী, ঢাকা ১২১৩, বাংলাদেশ'
-                  : 'House 06, Road 02, Block L, Banani, Dhaka 1213, Bangladesh',
-              description: '',
-              color: const Color(0xFF8B5CF6),
-            ),
+
             const SizedBox(height: 16),
             _buildContactCard(
               icon: Icons.access_time_rounded,

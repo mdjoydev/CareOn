@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../core/state/user_session.dart';
 import '../main.dart';
 import 'login_screen.dart';
 
@@ -20,25 +21,33 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     _OnboardingPageConfig(
       icon: Icons.person_outline_rounded,
       title: _isBangla ? 'পেশাদার স্বাস্থ্যসেবা ঘরে বসেই' : 'Professional Healthcare at Home',
-      description: _isBangla 
-          ? 'আপনার পরিবারের জন্য বিশ্বস্ত কেয়ারগিভার এবং ডাক্তার বুক করুন।' 
+      description: _isBangla
+          ? 'আপনার পরিবারের জন্য বিশ্বস্ত কেয়ারগিভার এবং ডাক্তার বুক করুন।'
           : 'Book trusted caregivers and doctors for your family.',
     ),
     _OnboardingPageConfig(
       icon: Icons.verified_user_outlined,
       title: _isBangla ? 'ভেরিফাইড মেডিকেল পেশাদার' : 'Verified Medical Professionals',
-      description: _isBangla 
-          ? 'আপনার যত্নের জন্য প্রত্যয়িত নার্স, ডাক্তার এবং কেয়ারগিভার।' 
+      description: _isBangla
+          ? 'আপনার যত্নের জন্য প্রত্যয়িত নার্স, ডাক্তার এবং কেয়ারগিভার।'
           : 'Certified nurses, doctors and caregivers for your care.',
     ),
     _OnboardingPageConfig(
       icon: Icons.event_note_outlined,
       title: _isBangla ? 'সহজ সার্ভিস বুকিং' : 'Easy Service Booking',
-      description: _isBangla 
-          ? 'ঘরে বসেই স্বাস্থ্যসেবা বুক করুন, ট্র্যাক করুন এবং গ্রহণ করুন।' 
+      description: _isBangla
+          ? 'ঘরে বসেই স্বাস্থ্যসেবা বুক করুন, ট্র্যাক করুন এবং গ্রহণ করুন।'
           : 'Book, track and receive healthcare services at home.',
     ),
   ];
+
+  void _finishOnboarding() async {
+    await UserSession.instance.setOnboardingComplete();
+    if (!mounted) return;
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => LoginScreen(initialIsBangla: _isBangla)),
+    );
+  }
 
   void _goNext() {
     if (_currentPage < _pages.length - 1) {
@@ -47,9 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         curve: Curves.easeOut,
       );
     } else {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => LoginScreen(initialIsBangla: _isBangla)),
-      );
+      _finishOnboarding();
     }
   }
 
@@ -129,7 +136,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(
                   _pages.length,
-                  (index) {
+                      (index) {
                     final isActive = index == _currentPage;
                     return AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
@@ -151,19 +158,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 width: double.infinity,
                 child: FilledButton(
                   onPressed: _goNext,
-                  child: Text(_currentPage == _pages.length - 1 
-                      ? (_isBangla ? 'শুরু করুন' : 'Get Started') 
+                  child: Text(_currentPage == _pages.length - 1
+                      ? (_isBangla ? 'শুরু করুন' : 'Get Started')
                       : (_isBangla ? 'পরবর্তী' : 'Next')),
                 ),
               ),
               const SizedBox(height: 8),
               if (_currentPage < _pages.length - 1)
                 TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (_) => LoginScreen(initialIsBangla: _isBangla)),
-                    );
-                  },
+                  onPressed: _finishOnboarding,
                   child: Text(_isBangla ? 'এড়িয়ে যান' : 'Skip'),
                 ),
             ],
